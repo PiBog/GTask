@@ -1,13 +1,11 @@
 package gem.task.tanksgame.client;
 
-import gem.task.tanksgame.client.window.Display;
+import gem.task.tanksgame.client.core.Display;
 import org.apache.log4j.Logger;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.io.*;
-import java.net.Socket;
 
 public class TanksgameApplicationClient {
     private static final Logger logger = Logger.getLogger(TanksgameApplicationClient.class.getName());
@@ -17,7 +15,7 @@ public class TanksgameApplicationClient {
 
     public static void main(String[] args) throws Exception {
 
-        Display.create(800, 600, "The Game", Color.LIGHT_GRAY);
+        Display.create(800, 600, "The Game - A, S, D, W", Color.LIGHT_GRAY);
 
         Timer t = new Timer(1000 / 60, new AbstractAction() {
             @Override

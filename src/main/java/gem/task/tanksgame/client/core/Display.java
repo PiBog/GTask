@@ -1,13 +1,13 @@
-package gem.task.tanksgame.client.window;
+package gem.task.tanksgame.client.core;
 
 import gem.task.tanksgame.client.controls.Keyboard;
 import gem.task.tanksgame.client.core.Handler;
-import gem.task.tanksgame.client.objects.Machine;
-import gem.task.tanksgame.client.objects.SimpleTank;
+import gem.task.tanksgame.client.objects.landscape.Bricks;
+import gem.task.tanksgame.client.objects.units.SimpleTank;
+import gem.task.tanksgame.client.objects.landscape.Water;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
 import java.util.Arrays;
@@ -69,6 +69,8 @@ public abstract class Display {
     public static void startGame() {
         handler = new Handler();
         handler.addObj(new SimpleTank(200, 200));
+        handler.addObj(new Bricks(500,500,50,50));
+        handler.addObj(new Water(300,50,50,100));
         window.addKeyListener(new Keyboard(handler));
 
     }

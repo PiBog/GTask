@@ -1,21 +1,19 @@
 package gem.task.tanksgame.client.core;
 
-import gem.task.tanksgame.client.objects.Machine;
+import gem.task.tanksgame.client.objects.GameObject;
 
 import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.util.LinkedList;
 
 public class Handler  {
 
-    private static LinkedList<Machine> objects = new LinkedList<Machine>();
+    private static LinkedList<GameObject> objects = new LinkedList<GameObject>();
 
-    public void addObj(Machine machine) {
+    public void addObj(GameObject machine) {
         objects.add(machine);
     }
 
-    public LinkedList<Machine> getObjList(){
+    public LinkedList<GameObject> getObjList(){
         return  objects;
     }
 
