@@ -38,7 +38,7 @@ public class Keyboard extends KeyAdapter {
                     default:
                         break;
                 }
-                LOGGER.info("offset: " + temp.getPosX() + "," + temp.getPosY());
+//                LOGGER.info("offset: " + temp.getPosX() + "," + temp.getPosY());
             }
         }
     }

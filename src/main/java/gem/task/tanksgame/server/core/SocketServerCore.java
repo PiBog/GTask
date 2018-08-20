@@ -8,6 +8,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.concurrent.ThreadPoolExecutor;
 
 @Getter
 public class SocketServerCore {
@@ -15,13 +16,14 @@ public class SocketServerCore {
     /*static ServerSocket variable*/
     private static ServerSocket server = null;
     private Socket clientSocket = null;
+    private boolean isListen = true;
+
 
     /*socket server port on which it will listen*/
     private static int port;
 
-    /*I/O streams*/
-    PrintWriter out;
-    BufferedReader in;
+    /*connection id*/
+    static int idCounter = 0;
 
     public SocketServerCore() throws IOException {
         this(8080);
@@ -41,32 +43,20 @@ public class SocketServerCore {
         startServer();
     }
 
-    private void startServer() throws IOException {
+    private void startServer() {
         /*Listen to client*/
-        clientSocket = server.accept();
+        while (isListen) {
+            try {
+                clientSocket = server.accept();
+                ClientConnHandler clientThread = new ClientConnHandler(clientSocket, idCounter++);
+                clientThread.start();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
-        //create the in and out
-        out = new PrintWriter(clientSocket.getOutputStream(), true);
-        in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-
-        runServer();
-    }
-
-    private void runServer() throws IOException {
-        String inputLine;
-        int outputLine;
-
-        while ((inputLine = in.readLine()) != null) {
-            System.out.println("Input received from " + clientSocket.getRemoteSocketAddress().toString() + ": " + inputLine);
-            outputLine = Integer.parseInt(inputLine)+1;
-            System.out.println("DATA = "+outputLine);
-            out.println(outputLine);
         }
 
-        out.close();
-        in.close();
-        clientSocket.close();
-        server.close();
     }
+
 
 }

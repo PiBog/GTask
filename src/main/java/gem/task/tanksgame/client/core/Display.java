@@ -1,7 +1,6 @@
 package gem.task.tanksgame.client.core;
 
 import gem.task.tanksgame.client.controls.Keyboard;
-import gem.task.tanksgame.client.core.Handler;
 import gem.task.tanksgame.client.objects.landscape.Bricks;
 import gem.task.tanksgame.client.objects.units.SimpleTank;
 import gem.task.tanksgame.client.objects.landscape.Water;
@@ -22,7 +21,6 @@ public abstract class Display {
     private static Graphics bufferedGraphics;
     private static int clearColor;
     private static Handler handler;
-    public static Keyboard keyListener;
 
 
     public static void create(int width, int height, String title, Color color) {
