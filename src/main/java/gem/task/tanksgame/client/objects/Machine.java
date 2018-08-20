@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public abstract class Machine {
+public abstract class Machine extends GameObject{
 
     /**machine features*/
     private int speed;
@@ -16,4 +16,12 @@ public abstract class Machine {
     private int positionX;
     private int positionY;
 
+    public void moveX(int xSpeedDirection){
+        int posX = getPositionX();
+        setPositionX(posX+xSpeedDirection);
+    }
+    public void moveY(int ySpeedDirection){
+        int posY = getPositionY();
+        setPositionY(posY+ySpeedDirection);
+    }
 }

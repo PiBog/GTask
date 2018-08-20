@@ -1,7 +1,11 @@
 package gem.task.tanksgame.client;
 
+import gem.task.tanksgame.client.window.Display;
 import org.apache.log4j.Logger;
 
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.io.*;
 import java.net.Socket;
 
@@ -13,30 +17,44 @@ public class TanksgameApplicationClient {
 
     public static void main(String[] args) throws Exception {
 
-        try (
-                Socket socket = new Socket(ipAdress, port);
-                PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
-                BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()))
-        ) {
-            String inputLine;
-            out.println(1);
+        Display.create(800, 600, "The Game", Color.LIGHT_GRAY);
 
-            while ((inputLine = in.readLine()) != null) {
-                System.out.println("have read from server: " + inputLine);
-                int number = Integer.valueOf(inputLine);
-//                if (number >= 10) {
-//                    break;
-//                }
-
-                number++;
-                System.out.println("sending to server:" +number);
-                out.println(number);
-                Thread.sleep(2000);
+        Timer t = new Timer(1000 / 60, new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Display.clear();
+                Display.render();
+                Display.swapBuffers();
             }
-            System.out.println("disconected...");
-        } catch (Throwable cause){
-            System.out.println("error: "+ cause.getMessage());
-        }
+        });
+
+        t.setRepeats(true);
+        t.start();
+
+//        try (
+//                Socket socket = new Socket(ipAdress, port);
+//                PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+//                BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()))
+//        ) {
+//            String inputLine;
+//            out.println(1);
+//
+//            while ((inputLine = in.readLine()) != null) {
+//                System.out.println("have read from server: " + inputLine);
+//                int number = Integer.valueOf(inputLine);
+////                if (number >= 10) {
+////                    break;
+////                }
+//
+//                number++;
+//                System.out.println("sending to server:" +number);
+//                out.println(number);
+//                Thread.sleep(2000);
+//            }
+//            System.out.println("disconected...");
+//        } catch (Throwable cause){
+//            System.out.println("error: "+ cause.getMessage());
+//        }
 
 
     }
