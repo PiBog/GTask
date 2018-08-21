@@ -5,6 +5,8 @@
  */
 package com.gemicle.tanksgame.server.core;
 
+import lombok.extern.log4j.Log4j;
+
 import java.io.*;
 import java.net.Socket;
 
@@ -15,6 +17,7 @@ import java.net.Socket;
  * @since 1.0
  */
 
+@Log4j
 public class ClientConnThread extends Thread {
 
     Socket clientSocket;
@@ -34,21 +37,23 @@ public class ClientConnThread extends Thread {
 
     @Override
     public void run() {
-        System.out.println("Accepted Client : ID - " + clientId + " : Address - " + clientSocket.getInetAddress().getHostName());
+        log.info("Accepted Client : ID - " + clientId + " : Address - "
+                    + clientSocket.getInetAddress().getHostName());
 
         try {
             in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
             out = new PrintWriter(new OutputStreamWriter(clientSocket.getOutputStream()));
             while (isRunning){
                 String clientCommand = in.readLine();
-                System.out.println("Client Says :" + clientCommand);
+                log.info("Client Says :" + clientCommand);
                 if (clientCommand.equalsIgnoreCase("quit")) {
                     isRunning = false;
-                    System.out.print("Stopping client thread for client : " + clientId);
-                } else {
-                    out.println(clientCommand);
-                    out.flush();
+                    log.info("Stopping client thread for client : " + clientId);
                 }
+//                else {
+//                    out.println(clientCommand);
+//                    out.flush();
+//                }
             }
         } catch (IOException e) {
             e.printStackTrace();

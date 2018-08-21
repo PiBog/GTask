@@ -17,10 +17,6 @@ public class TanksgameApplicationClient {
         /*creat new window*/
         Display.create(800, 600, "The Game - A, S, D, W", Color.LIGHT_GRAY);
 
-        /*connect to game server*/
-        Connector connect = new Connector("localhost", 8888);
-        Thread connThread = new Thread(connect);
-        connThread.start();
 
         /*start rendering game*/
         Timer t = new Timer(1000 / 60, new AbstractAction() {

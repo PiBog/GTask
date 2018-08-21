@@ -11,6 +11,7 @@ import lombok.extern.log4j.Log4j;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.LinkedList;
 
 /**
  * Implementation of the socket server class.
@@ -23,12 +24,16 @@ import java.net.Socket;
 @Log4j
 public class SocketServer {
 
-    private static int idCounter = 0;
+    private int idCounter = 0;
 
     private ServerSocket server = null;
     private int port;
     private Socket clientSocket = null;
     private boolean isListen = false;
+
+    private Thread serverThread;
+
+    public LinkedList<ClientConnThread> clientsList = new LinkedList<>();
 
     public SocketServer() throws IOException {
         this(8080);
@@ -52,11 +57,15 @@ public class SocketServer {
     }
 
     private void startServer() {
+
+        this.serverThread = Thread.currentThread();
+
         /*Listen to client*/
         while (isListen) {
             try {
                 clientSocket = server.accept();
-                ClientConnThread clientThread = new ClientConnThread(clientSocket, idCounter++);
+                ClientConnThread clientThread = new ClientConnThread(clientSocket, this.idCounter++);
+                this.clientsList.add(clientThread);
                 clientThread.start();
             } catch (IOException e) {
                 e.printStackTrace();

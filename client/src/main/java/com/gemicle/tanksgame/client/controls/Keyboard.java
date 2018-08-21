@@ -9,8 +9,6 @@ import java.awt.event.KeyEvent;
 
 public class Keyboard extends KeyAdapter {
 
-    private static final Logger LOGGER = Logger.getLogger(Keyboard.class.getName());
-
     public Handler handler;
 
     public Keyboard(Handler handler) {
@@ -38,35 +36,9 @@ public class Keyboard extends KeyAdapter {
                     default:
                         break;
                 }
-//                LOGGER.info("offset: " + temp.getPosX() + "," + temp.getPosY());
             }
         }
     }
-
-//    public void keyReleased(KeyEvent event){
-//        for (int i = 0; i < handler.getObjList().size(); i++) {
-//            Machine temp = handler.getObjList().get(i);
-//            int keyCode = event.getKeyCode();
-//            switch (keyCode) {
-//                case KeyEvent.VK_W:
-//                    yPos = 0;
-//                    break;
-//                case KeyEvent.VK_S:
-//                    yPos = 0;
-//                    break;
-//                case KeyEvent.VK_A:
-//                    xPos = 0;
-//                    break;
-//                case KeyEvent.VK_D:
-//                    xPos = 0;
-//                    break;
-//                default:
-//                    break;
-//            }
-////            temp.moveX(xPos);
-////            temp.moveY(yPos);
-//        }
-//    }
 
 
 }

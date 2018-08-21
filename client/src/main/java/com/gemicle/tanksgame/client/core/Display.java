@@ -23,6 +23,7 @@ public abstract class Display {
     private static Handler handler;
 
 
+
     public static void create(int width, int height, String title, Color color) {
         if (isCreated) return;
 
@@ -46,7 +47,17 @@ public abstract class Display {
         clearColor = color.getRGB();
 
         isCreated = true;
+
+
+
         startGame();
+    }
+
+    private static Thread conectToServer() {
+        /*connect to game server*/
+        Connector connThread = new Connector("localhost", 8888);
+        connThread.start();
+        return connThread;
     }
 
     public static void clear() {
@@ -65,7 +76,7 @@ public abstract class Display {
     }
 
     public static void startGame() {
-        handler = new Handler();
+        handler = new Handler(conectToServer());
         handler.addObj(new SimpleTank(200, 200));
         handler.addObj(new Bricks(500,500,50,50));
         handler.addObj(new Water(300,50,50,100));
