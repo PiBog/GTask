@@ -11,12 +11,11 @@ import lombok.extern.log4j.Log4j;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.List;
 
 /**
  * Implementation of the socket server class.
  *
- * @author Bogdan Pisarenko
+ * @author Bohdan Pysarenko
  * @since 1.0
  */
 
@@ -24,17 +23,12 @@ import java.util.List;
 @Log4j
 public class SocketServer {
 
-    /**connection id counter*/
-    static int idCounter = 0;
+    private static int idCounter = 0;
 
-    /*static ServerSocket variable*/
-    private static ServerSocket server = null;
-    /*socket server port on which it will listen*/
-    private static int port;
+    private ServerSocket server = null;
+    private int port;
     private Socket clientSocket = null;
     private boolean isListen = false;
-
-    List
 
     public SocketServer() throws IOException {
         this(8080);
@@ -54,7 +48,7 @@ public class SocketServer {
         }
         log.info("Server started.");
         startServer();
-        ArrayList
+
     }
 
     private void startServer() {
@@ -62,7 +56,7 @@ public class SocketServer {
         while (isListen) {
             try {
                 clientSocket = server.accept();
-                ClientConnHandler clientThread = new ClientConnHandler(clientSocket, idCounter++);
+                ClientConnThread clientThread = new ClientConnThread(clientSocket, idCounter++);
                 clientThread.start();
             } catch (IOException e) {
                 e.printStackTrace();

@@ -3,11 +3,13 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.gemicle</groupId>
+	<groupId>com.gemicle.tanksgame</groupId>
 	<artifactId>tanksgame</artifactId>
-	<version>1.0.0-SNAPSHOT</version>
+	<version>${global.version}</version>
+	<!--<version>1.0.0-SNAPSHOT</version>-->
     <modules>
-        <module>server</module>
+		<module>common</module>
+		<module>server</module>
 		<module>client</module>
 	</modules>
     <packaging>pom</packaging>
@@ -19,6 +21,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
+		<global.version>1.0.1-SNAPSHOT</global.version>
 	</properties>
 
 	<dependencies>

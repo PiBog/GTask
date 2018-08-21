@@ -1,4 +1,4 @@
-package com.gemicle.tanksgame.client.objects;
+package com.gemicle.tanksgame.common.objects;
 
 import lombok.Getter;
 import lombok.Setter;

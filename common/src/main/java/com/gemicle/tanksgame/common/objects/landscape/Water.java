@@ -1,12 +1,12 @@
-package com.gemicle.tanksgame.client.objects.landscape;
+package com.gemicle.tanksgame.common.objects.landscape;
 
-import com.gemicle.tanksgame.client.objects.ID;
+import com.gemicle.tanksgame.common.objects.ID;
 
 import java.awt.*;
 
-public class Bricks extends WallMaterial {
+public class Water extends WallMaterial{
 
-    public Bricks(int xPos, int yPos, int width, int height) {
+    public Water(int xPos, int yPos, int width, int height) {
         this.setPosX(xPos);
         this.setPosY(yPos);
         this.setId(ID.Wall);
@@ -16,7 +16,7 @@ public class Bricks extends WallMaterial {
 
     @Override
     public void render(Graphics g) {
-        g.setColor(Color.ORANGE);
+        g.setColor(Color.BLUE);
         g.fillRect(getPosX(),getPosY(),getWidth(),getHeight());
     }
 }

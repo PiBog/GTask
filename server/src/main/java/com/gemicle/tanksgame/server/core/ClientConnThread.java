@@ -1,19 +1,33 @@
+/*Gemicle Inc. © 2012 - 2018. All right reserved.
+ *
+ *
+ *
+ */
 package com.gemicle.tanksgame.server.core;
 
 import java.io.*;
 import java.net.Socket;
 
-public class ClientConnHandler extends Thread {
+/**
+ * Implementation of the main class of the server part of the Tanksgame application.
+ *
+ * @author  Bohdan Pysarenko
+ * @since 1.0
+ */
+
+public class ClientConnThread extends Thread {
 
     Socket clientSocket;
     int clientId;
     boolean isRunning = true;
 
-    /*I/O streams*/
-    PrintWriter out;
+    /**I/O streams*/
     BufferedReader in;
 
-    ClientConnHandler(Socket socket, int id) {
+    /**I/O streams*/
+    PrintWriter out;
+
+    public ClientConnThread(Socket socket, int id) {
         this.clientSocket = socket;
         this.clientId = id;
     }

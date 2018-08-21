@@ -1,6 +1,6 @@
 package com.gemicle.tanksgame.client.core;
 
-import com.gemicle.tanksgame.client.objects.GameObject;
+import com.gemicle.tanksgame.common.objects.GameObject;
 
 import java.awt.*;
 import java.util.LinkedList;

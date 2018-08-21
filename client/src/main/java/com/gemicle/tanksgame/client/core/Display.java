@@ -1,9 +1,9 @@
 package com.gemicle.tanksgame.client.core;
 
 import com.gemicle.tanksgame.client.controls.Keyboard;
-import com.gemicle.tanksgame.client.objects.landscape.Bricks;
-import com.gemicle.tanksgame.client.objects.landscape.Water;
-import com.gemicle.tanksgame.client.objects.units.SimpleTank;
+import com.gemicle.tanksgame.common.objects.landscape.Bricks;
+import com.gemicle.tanksgame.common.objects.landscape.Water;
+import com.gemicle.tanksgame.common.objects.units.SimpleTank;
 
 import javax.swing.*;
 import java.awt.*;

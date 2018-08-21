@@ -1,9 +1,9 @@
-/target/
+target
 #!.mvn/wrapper/maven-wrapper.jar
 /.mvn/
-mvnw.*
-mvnw
-/.Log/
+mvnw*
+.Log
+
 
 ### STS ###
 .apt_generated

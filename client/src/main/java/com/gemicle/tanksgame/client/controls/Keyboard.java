@@ -1,7 +1,7 @@
 package com.gemicle.tanksgame.client.controls;
 
 import com.gemicle.tanksgame.client.core.Handler;
-import com.gemicle.tanksgame.client.objects.units.Machine;
+import com.gemicle.tanksgame.common.objects.units.Machine;
 import org.apache.log4j.Logger;
 
 import java.awt.event.KeyAdapter;

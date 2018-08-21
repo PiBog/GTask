@@ -13,7 +13,7 @@ import java.io.IOException;
 /**
  * Implementation of the main class of the server part of the Tanksgame application.
  *
- * @author  Bogdan Pisarenko
+ * @author  Bohdan Pysarenko
  * @version 1.0
  */
 

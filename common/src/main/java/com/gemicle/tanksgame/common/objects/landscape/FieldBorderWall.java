@@ -1,6 +1,6 @@
-package com.gemicle.tanksgame.client.objects.landscape;
+package com.gemicle.tanksgame.common.objects.landscape;
 
-import com.gemicle.tanksgame.client.objects.ID;
+import com.gemicle.tanksgame.common.objects.ID;
 
 import java.awt.*;
 
