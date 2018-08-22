@@ -1,30 +1,34 @@
+/*Gemicle Inc. © 2012 - 2018. All right reserved.
+ *
+ *
+ *
+ */
 package com.gemicle.tanksgame.client.core;
 
 import com.gemicle.tanksgame.common.objects.GameObject;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.extern.log4j.Log4j;
 
 import java.awt.*;
-import java.awt.event.KeyEvent;
 import java.util.LinkedList;
 
+@Log4j
+@Getter
+@Setter
 public class Handler  {
 
-    private static LinkedList<GameObject> objects = new LinkedList<>();
+    private Connector connector;
 
-    private Connector currentConn;
+    public static LinkedList<GameObject> objects = new LinkedList<>();
+
 
     public Handler() {
     }
 
-    public Handler(Connector currentConn){
-        this.currentConn = currentConn;
-    }
 
     public void addObj(GameObject machine) {
         objects.add(machine);
-    }
-
-    public LinkedList<GameObject> getObjList(){
-        return  objects;
     }
 
     public void render(Graphics g){
@@ -33,8 +37,9 @@ public class Handler  {
         }
     }
 
-    public void sendKeyAction(KeyEvent keyEvent){
-        currentConn.buffer=keyEvent.toString();
+    public void handleAction(String keyCode){
+        log.info("handle action");
+         getConnector().sendMsg(keyCode);
     }
 
 

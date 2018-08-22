@@ -52,13 +52,15 @@ public class ClientConnThread extends Thread {
             while (isRunning) {
                 String clientCommand = in.readLine();
                 log.info("Client " + this.clientId + " Says :" + clientCommand);
-                if (clientCommand.equalsIgnoreCase("quit")) {
+                if (clientCommand.equalsIgnoreCase("stop")) {
                     isRunning = false;
                     log.info("Stopping client thread for client : " + clientId);
                 }
                 else {
                     for (ClientConnThread conn : SocketServer.clientsList){
+                        if(conn.isAlive()){
                         conn.sendMsg(clientCommand);
+                        log.info("Sending to client " + conn.clientId + ": " + clientCommand);}
                     }
 
                 }

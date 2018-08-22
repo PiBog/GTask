@@ -26,5 +26,9 @@ public abstract class Machine extends GameObject {
         this.setPosY(newPosY);
     }
 
+    public void fire(){
+
+    }
+
 
 }

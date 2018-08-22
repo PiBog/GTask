@@ -31,7 +31,6 @@ public class SocketServer  {
     private int port;
     private Socket clientSocket = null;
     private boolean isListen = false;
-    private ConnEventListener listener;
 
     private Thread serverThread;
 
