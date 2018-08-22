@@ -11,6 +11,7 @@ import lombok.extern.log4j.Log4j;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.EventListener;
 import java.util.LinkedList;
 
 /**
@@ -22,7 +23,7 @@ import java.util.LinkedList;
 
 @Getter
 @Log4j
-public class SocketServer {
+public class SocketServer  {
 
     private int idCounter = 0;
 
@@ -30,10 +31,11 @@ public class SocketServer {
     private int port;
     private Socket clientSocket = null;
     private boolean isListen = false;
+    private ConnEventListener listener;
 
     private Thread serverThread;
 
-    public LinkedList<ClientConnThread> clientsList = new LinkedList<>();
+    public static LinkedList<ClientConnThread> clientsList = new LinkedList<>();
 
     public SocketServer() throws IOException {
         this(8080);
@@ -52,13 +54,13 @@ public class SocketServer {
             throw (e);
         }
         log.info("Server started.");
+        this.serverThread = Thread.currentThread();
         startServer();
+        log.info("Server work.");
 
     }
 
     private void startServer() {
-
-        this.serverThread = Thread.currentThread();
 
         /*Listen to client*/
         while (isListen) {
@@ -72,6 +74,8 @@ public class SocketServer {
             }
 
         }
+
+
 
     }
 

@@ -23,6 +23,7 @@ public class Keyboard extends KeyAdapter {
                 switch (keyCode) {
                     case KeyEvent.VK_W:
                         temp.moveY(-1);
+//                        handler.sendKeyAction(event);
                         break;
                     case KeyEvent.VK_S:
                         temp.moveY(1);

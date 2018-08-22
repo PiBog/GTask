@@ -10,9 +10,12 @@ public class Handler  {
 
     private static LinkedList<GameObject> objects = new LinkedList<>();
 
-    private Thread currentConn;
+    private Connector currentConn;
 
-    public Handler(Thread currentConn){
+    public Handler() {
+    }
+
+    public Handler(Connector currentConn){
         this.currentConn = currentConn;
     }
 
@@ -31,7 +34,7 @@ public class Handler  {
     }
 
     public void sendKeyAction(KeyEvent keyEvent){
-        currentConn.se
+        currentConn.buffer=keyEvent.toString();
     }
 
 

@@ -9,6 +9,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
+import java.io.IOException;
 import java.util.Arrays;
 
 public abstract class Display {
@@ -21,7 +22,7 @@ public abstract class Display {
     private static Graphics bufferedGraphics;
     private static int clearColor;
     private static Handler handler;
-
+    static Connector  connThread;
 
 
     public static void create(int width, int height, String title, Color color) {
@@ -41,6 +42,7 @@ public abstract class Display {
         window.setLocationRelativeTo(null);
         window.setVisible(true);
 
+
         buffer = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
         bufferedData = ((DataBufferInt) buffer.getRaster().getDataBuffer()).getData();
         bufferedGraphics = buffer.getGraphics();
@@ -49,15 +51,18 @@ public abstract class Display {
         isCreated = true;
 
 
-
+        try {
+            conectToServer();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         startGame();
     }
 
-    private static Thread conectToServer() {
+    private static void conectToServer() throws IOException{
         /*connect to game server*/
-        Connector connThread = new Connector("localhost", 8888);
-        connThread.start();
-        return connThread;
+         connThread = new Connector("localhost", 8888);
+
     }
 
     public static void clear() {
@@ -76,10 +81,10 @@ public abstract class Display {
     }
 
     public static void startGame() {
-        handler = new Handler(conectToServer());
+        handler = new Handler();
         handler.addObj(new SimpleTank(200, 200));
-        handler.addObj(new Bricks(500,500,50,50));
-        handler.addObj(new Water(300,50,50,100));
+        handler.addObj(new Bricks(500, 500, 50, 50));
+        handler.addObj(new Water(300, 50, 50, 100));
         window.addKeyListener(new Keyboard(handler));
 
     }

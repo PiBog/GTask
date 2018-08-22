@@ -13,7 +13,7 @@ import java.net.Socket;
 /**
  * Implementation of the main class of the server part of the Tanksgame application.
  *
- * @author  Bohdan Pysarenko
+ * @author Bohdan Pysarenko
  * @since 1.0
  */
 
@@ -24,40 +24,53 @@ public class ClientConnThread extends Thread {
     int clientId;
     boolean isRunning = true;
 
-    /**I/O streams*/
+    /**
+     * I/O streams
+     */
     BufferedReader in;
 
-    /**I/O streams*/
+    /**
+     * I/O streams
+     */
     PrintWriter out;
 
-    public ClientConnThread(Socket socket, int id) {
+    public ClientConnThread(Socket socket, int id) throws IOException {
         this.clientSocket = socket;
         this.clientId = id;
+        this.in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+        this.out = new PrintWriter(new OutputStreamWriter(clientSocket.getOutputStream()));
+        log.info("Accepted Client : ID - " + clientId + " : Address - "
+                + clientSocket.getInetAddress().getHostName());
     }
 
     @Override
     public void run() {
-        log.info("Accepted Client : ID - " + clientId + " : Address - "
-                    + clientSocket.getInetAddress().getHostName());
+
 
         try {
-            in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-            out = new PrintWriter(new OutputStreamWriter(clientSocket.getOutputStream()));
-            while (isRunning){
+
+            while (isRunning) {
                 String clientCommand = in.readLine();
-                log.info("Client Says :" + clientCommand);
+                log.info("Client " + this.clientId + " Says :" + clientCommand);
                 if (clientCommand.equalsIgnoreCase("quit")) {
                     isRunning = false;
                     log.info("Stopping client thread for client : " + clientId);
                 }
-//                else {
-//                    out.println(clientCommand);
-//                    out.flush();
-//                }
+                else {
+                    for (ClientConnThread conn : SocketServer.clientsList){
+                        conn.sendMsg(clientCommand);
+                    }
+
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
 
+    }
+
+    private void sendMsg(String msg){
+        out.println(msg);
+        out.flush();
     }
 }
