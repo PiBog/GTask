@@ -6,7 +6,8 @@
 package com.gemicle.tanksgame.client;
 
 import com.gemicle.tanksgame.client.core.UserInterface;
-import org.apache.log4j.Logger;
+import com.gemicle.tanksgame.client.sandbox.Frame;
+import lombok.extern.log4j.Log4j;
 
 import javax.swing.*;
 import java.awt.*;
@@ -19,8 +20,8 @@ import java.io.IOException;
  * @author  Bohdan Pysarenko
  * @version 1.0
  */
+@Log4j
 public class TanksgameApplicationClient {
-    private static final Logger logger = Logger.getLogger(TanksgameApplicationClient.class.getName());
 
     /**
      * Application entry point. Starts client.
@@ -30,20 +31,22 @@ public class TanksgameApplicationClient {
      */
     public static void main(String[] args) throws IOException {
 
+        JFrame myWindow = new Frame("TG");
+
         /*creat UI*/
-        UserInterface startUI = new UserInterface(800, 600, "The Game - A, S, D, W", Color.LIGHT_GRAY);
+//        UserInterface startUI = new UserInterface(800, 600, "The Game - A, S, D, W", Color.LIGHT_GRAY);
 
         /*start rendering gamemechanic*/
-        Timer t = new Timer(1000 / 60, new AbstractAction() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                startUI.clear();
-                startUI.render();
-                startUI.swapBuffers();
-            }
-        });
-        t.setRepeats(true);
-        t.start();
+//        Timer t = new Timer(1000 / 60, new AbstractAction() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                startUI.clear();
+//                startUI.render();
+//                startUI.swapBuffers();
+//            }
+//        });
+//        t.setRepeats(true);
+//        t.start();
 
     }
 }

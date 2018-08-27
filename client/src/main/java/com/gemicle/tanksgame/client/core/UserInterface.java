@@ -65,7 +65,7 @@ public class UserInterface {
         connect();
         handler.setConnector(this.connector);
         /*todo: replace by getMapParams()*/
-        handler.addObj(new SimpleTank(200, 200));
+//        handler.addObj(new SimpleTank(200, 200));
         handler.addObj(new Bricks(500, 500, 50, 50));
         handler.addObj(new Water(300, 50, 50, 100));
 

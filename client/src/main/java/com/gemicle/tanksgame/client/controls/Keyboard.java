@@ -28,31 +28,31 @@ public class Keyboard extends KeyAdapter {
             if (Handler.objects.get(i) instanceof Machine) {
                 Machine temp = (Machine) Handler.objects.get(i);
                 int keyCode = event.getKeyCode();
-                switch (keyCode) {
-                    case KeyEvent.VK_W:
-                        log.info(keyCode + " W pressed");
-                        temp.moveY(-1);
-                        handler.handleAction("W pressed");
-                        break;
-                    case KeyEvent.VK_S:
-                        temp.moveY(1);
-                        handler.handleAction("S pressed");
-                        break;
-                    case KeyEvent.VK_A:
-                        temp.moveX(-1);
-                        handler.handleAction("A pressed");
-                        break;
-                    case KeyEvent.VK_D:
-                        temp.moveX(1);
-                        handler.handleAction("D pressed");
-                        break;
-                    case KeyEvent.VK_SPACE:
-                        temp.fire();
-                        handler.handleAction("Space pressed");
-                        break;
-                    default:
-                        break;
-                }
+//                switch (keyCode) {
+//                    case KeyEvent.VK_W:
+//                        log.info(keyCode + " W pressed");
+//                        temp.moveY(-1);
+//                        handler.handleAction("W pressed");
+//                        break;
+//                    case KeyEvent.VK_S:
+//                        temp.moveY(1);
+//                        handler.handleAction("S pressed");
+//                        break;
+//                    case KeyEvent.VK_A:
+//                        temp.moveX(-1);
+//                        handler.handleAction("A pressed");
+//                        break;
+//                    case KeyEvent.VK_D:
+//                        temp.moveX(1);
+//                        handler.handleAction("D pressed");
+//                        break;
+//                    case KeyEvent.VK_SPACE:
+//                        temp.fire();
+//                        handler.handleAction("Space pressed");
+//                        break;
+//                    default:
+//                        break;
+//                }
             }
         }
     }

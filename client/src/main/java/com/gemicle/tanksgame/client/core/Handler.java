@@ -33,7 +33,7 @@ public class Handler  {
 
     public void render(Graphics g){
         for (int i=0; i< objects.size(); i++){
-            objects.get(i).render(g);
+//            objects.get(i).render(g);
         }
     }
 
