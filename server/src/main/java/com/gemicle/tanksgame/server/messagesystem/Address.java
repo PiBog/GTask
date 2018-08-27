@@ -10,7 +10,7 @@ import lombok.Getter;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- * Class generates and keeps unique ID for services
+ * Class contains address, generates and keeps unique ID for services
  *
  * @author Bohdan Pysarenko
  * @version 1.0

@@ -5,7 +5,6 @@
  */
 package com.gemicle.tanksgame.server.messagesystem;
 
-import com.gemicle.tanksgame.server.sandbox.Address;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -23,13 +22,18 @@ public class MessageSystem {
     /**
      * A field contains the instance of MessageSystem
      */
-    private static MessageSystem ourInstance = new MessageSystem();
+    private static MessageSystem ourInstance;
+
+    private Address frontEndAddress;
+    private Address gameMechAddress;
 
     /**
-     *  Pole mistyt' povidomlenia dlia obminu mij igrovymy servisamy
+     * A field contains messages for services
      */
-    private final Map<Address, ConcurrentLinkedQueue<Message>> messages =
-            new HashMap<>();
+    private final Map<Address, ConcurrentLinkedQueue<Message>> messages = new HashMap<>();
+
+    private MessageSystem() {
+    }
 
     /**
      * Method returns the instans of MessageSystem
@@ -43,17 +47,32 @@ public class MessageSystem {
         return ourInstance;
     }
 
-    private MessageSystem() {
+    public void registerFrontEnd(Subscriber service){
+        this.frontEndAddress = service.getAddress();
+        this.messages.put(frontEndAddress,new ConcurrentLinkedQueue<>());
     }
 
-    public void sendMsg(Message message){
+    public void registerGameMech(Subscriber service){
+        this.gameMechAddress = service.getAddress();
+        this.messages.put(gameMechAddress,new ConcurrentLinkedQueue<>());
+    }
+
+    public Address getFrontEndAddress(){
+        return frontEndAddress;
+    }
+
+    public Address getGameMechAddress(){
+        return gameMechAddress;
+    }
+
+    public void sendMsg(Message message) {
         Queue<Message> messageQueue = messages.get(message.getTo());
         messageQueue.add(message);
     }
 
-    public void executeForSubscriber(Subscriber subscriber){
+    public void executeForSubscriber(Subscriber subscriber) {
         Queue<Message> messageQueue = messages.get(subscriber.getAddress());
-        while (!messageQueue.isEmpty()){
+        while (!messageQueue.isEmpty()) {
             Message message = messageQueue.poll();
             message.execute(subscriber);
         }

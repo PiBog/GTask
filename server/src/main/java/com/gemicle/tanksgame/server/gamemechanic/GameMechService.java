@@ -5,6 +5,8 @@
  */
 package com.gemicle.tanksgame.server.gamemechanic;
 
+import com.gemicle.tanksgame.server.frontend.Player;
+
 /**
  * Interface for working with subscribers of {@code GameMechService}
  * type inside messaging system
@@ -14,4 +16,7 @@ package com.gemicle.tanksgame.server.gamemechanic;
  * @since 1.0
  */
 public interface GameMechService {
+
+    GameSession processingUserCommand(Player player, String command);
+
 }

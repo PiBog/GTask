@@ -10,7 +10,5 @@ import java.awt.*;
 public abstract class GameObject {
 
     protected int posX, posY, width, height, placingPrioryty;
-    protected ID id;
 
-    abstract public void render (Graphics g);
 }

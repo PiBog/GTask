@@ -5,6 +5,9 @@
  */
 package com.gemicle.tanksgame.server.gamemechanic;
 
+import com.gemicle.tanksgame.server.config.ThreadsSettings;
+import com.gemicle.tanksgame.server.frontend.Player;
+import com.gemicle.tanksgame.server.messagesystem.Address;
 import com.gemicle.tanksgame.server.messagesystem.MessageSystem;
 import com.gemicle.tanksgame.server.messagesystem.Subscriber;
 import lombok.Getter;
@@ -20,14 +23,21 @@ import lombok.Getter;
 public class GameMechServiceImpl implements GameMechService, Subscriber, Runnable {
 
     /**
+     * Field contains an address of service
+     */
+    private final Address address = new Address();
+
+    /**
      * Field contains an instance of message system
      */
     private MessageSystem messageSystem;
 
+    private boolean isRun = false;
+
     /**
      * Constructs new object instance and initializes message system as parameter
      */
-    public GameMechServiceImpl(MessageSystem ms){
+    public GameMechServiceImpl(MessageSystem ms) {
         this.messageSystem = ms;
     }
 
@@ -36,10 +46,16 @@ public class GameMechServiceImpl implements GameMechService, Subscriber, Runnabl
      */
     @Override
     public void run() {
-
-        while (true){
-
+        this.isRun = true;
+        while (this.isRun) {
+            messageSystem.executeForSubscriber(this);
         }
-
     }
+
+    @Override
+    public GameSession processingUserCommand(Player player, String command) {
+        return null;
+    }
+
+
 }

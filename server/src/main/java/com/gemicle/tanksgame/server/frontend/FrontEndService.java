@@ -6,6 +6,9 @@
 package com.gemicle.tanksgame.server.frontend;
 
 import com.gemicle.tanksgame.server.gamemechanic.GameSession;
+import com.gemicle.tanksgame.server.messagesystem.Message;
+
+import java.util.Map;
 
 /**
  * Interface for working with {@code FrontEndService}
@@ -16,24 +19,9 @@ import com.gemicle.tanksgame.server.gamemechanic.GameSession;
  */
 public interface FrontEndService {
 
-    /**
-     * Connects new user to game
-     */
-    void connect(String name);
+    void executePlayerCommand (Player player, String command);
 
-    /**
-     * Returns information about current game to client
-     */
-    boolean isConnected(UserSession, GameSession);
+    void replicateToClients(GameSession gameSession);
 
-    /**
-     * Gets command from client
-     */
-    void userCommand(Object);
-
-    /**
-     * Refreshes information about current game session to clients
-     */
-    void reply(GameSession);
-
+    Map<Player, ClientConnThread> getConnectedUsers();
 }

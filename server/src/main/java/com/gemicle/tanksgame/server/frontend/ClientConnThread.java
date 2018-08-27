@@ -5,6 +5,7 @@
  */
 package com.gemicle.tanksgame.server.frontend;
 
+import lombok.Getter;
 import lombok.extern.log4j.Log4j;
 
 import java.io.*;
@@ -18,52 +19,44 @@ import java.net.Socket;
  */
 
 @Log4j
-public class ClientConnThread implements Runnable{
+@Getter
+public class ClientConnThread extends Thread{
 
-    Socket clientSocket;
-    int clientId;
-    boolean isRunning = true;
-
-    /**
-     * I/O streams
-     */
-    BufferedReader in;
+    private final FrontEndService frontEndService;
+    private final Socket clientSocket;
+    private final Player player;
 
     /**
      * I/O streams
      */
-    PrintWriter out;
+    private final BufferedReader in;
 
-    public ClientConnThread(Socket socket, int id) throws IOException {
-        this.clientSocket = socket;
-        this.clientId = id;
+    /**
+     * I/O streams
+     */
+    private final PrintWriter out;
+
+    public ClientConnThread(FrontEndService frontEndService, Socket clientSocket) throws IOException {
+        this.frontEndService = frontEndService;
+        this.clientSocket = clientSocket;
+        this.player = new Player();
         this.in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
         this.out = new PrintWriter(new OutputStreamWriter(clientSocket.getOutputStream()));
-        log.info("Accepted Client : ID - " + clientId + " : Address - "
+        log.info("Accepted Client: " + "Address - "
                 + clientSocket.getInetAddress().getHostName());
     }
 
     @Override
     public void run() {
-
+        frontEndService.getConnectedUsers().put(this.player, this);
 
         try {
 
-            while (isRunning) {
+            while (!isInterrupted()) {
                 String clientCommand = in.readLine();
-                log.info("Client " + this.clientId + " Says :" + clientCommand);
-                if (clientCommand.equalsIgnoreCase("stop")) {
-                    isRunning = false;
-                    log.info("Stopping client thread for client : " + clientId);
-                }
-                else {
-                    for (ClientConnThread conn : SocketServer.clientsList){
-                        if(conn.isAlive()){
-                        conn.sendMsg(clientCommand);
-                        log.info("Sending to client " + conn.clientId + ": " + clientCommand);}
-                    }
+                log.info("Client " + this.player.toString() + " Says :" + clientCommand);
+                frontEndService.executePlayerCommand(this.player, clientCommand);
 
-                }
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -71,8 +64,4 @@ public class ClientConnThread implements Runnable{
 
     }
 
-    private void sendMsg(String msg){
-        out.println(msg);
-        out.flush();
-    }
 }
