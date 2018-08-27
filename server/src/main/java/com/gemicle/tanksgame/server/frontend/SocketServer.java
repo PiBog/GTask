@@ -3,7 +3,7 @@
  *
  *
  */
-package com.gemicle.tanksgame.server.core;
+package com.gemicle.tanksgame.server.frontend;
 
 import lombok.Getter;
 import lombok.extern.log4j.Log4j;
@@ -11,7 +11,6 @@ import lombok.extern.log4j.Log4j;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.EventListener;
 import java.util.LinkedList;
 
 /**

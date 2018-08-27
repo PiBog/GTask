@@ -33,7 +33,7 @@ public class TanksgameApplicationClient {
         /*creat UI*/
         UserInterface startUI = new UserInterface(800, 600, "The Game - A, S, D, W", Color.LIGHT_GRAY);
 
-        /*start rendering game*/
+        /*start rendering gamemechanic*/
         Timer t = new Timer(1000 / 60, new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {

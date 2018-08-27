@@ -100,7 +100,7 @@ public class UserInterface {
     }
 
     /**
-     * Method clear game area before repainting
+     * Method clear gamemechanic area before repainting
      * */
     public void clear() {
         Arrays.fill(this.bufferedData, this.clearColor);
@@ -108,7 +108,7 @@ public class UserInterface {
     }
 
     /**
-     * Method creates buffered repainting of game object
+     * Method creates buffered repainting of gamemechanic object
      * */
     public void render() {
         this.handler.render(this.window.getBufferedGraphics());
@@ -116,7 +116,7 @@ public class UserInterface {
 
 
     /**
-     * Method repaint game area on screen
+     * Method repaint gamemechanic area on screen
      * */
     public void swapBuffers() {
         Graphics graphics = window.getContent().getGraphics();

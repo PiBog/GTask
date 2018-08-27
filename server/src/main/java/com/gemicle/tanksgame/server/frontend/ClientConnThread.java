@@ -3,7 +3,7 @@
  *
  *
  */
-package com.gemicle.tanksgame.server.core;
+package com.gemicle.tanksgame.server.frontend;
 
 import lombok.extern.log4j.Log4j;
 
@@ -18,7 +18,7 @@ import java.net.Socket;
  */
 
 @Log4j
-public class ClientConnThread extends Thread {
+public class ClientConnThread implements Runnable{
 
     Socket clientSocket;
     int clientId;
