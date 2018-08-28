@@ -44,6 +44,7 @@ public class ClientConnThread extends Thread{
         this.out = new PrintWriter(new OutputStreamWriter(clientSocket.getOutputStream()));
         log.info("Accepted Client: " + "Address - "
                 + clientSocket.getInetAddress().getHostName());
+        
     }
 
     @Override

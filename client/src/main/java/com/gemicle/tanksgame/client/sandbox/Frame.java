@@ -5,13 +5,17 @@
  */
 package com.gemicle.tanksgame.client.sandbox;
 
+import com.gemicle.tanksgame.client.core.Connector;
 import lombok.Getter;
 import lombok.extern.log4j.Log4j;
 
 import javax.swing.*;
 import javax.swing.event.MouseInputAdapter;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
 
 /**
  * An implementation of
@@ -25,6 +29,9 @@ import java.awt.event.MouseEvent;
 @Getter
 public class Frame extends JFrame {
 
+    private CurrentPlayer player;
+
+
     private JPanel field = new JPanel();
     private JLabel waiting = new JLabel("Not connected.");
     private JLabel label3;
@@ -33,11 +40,13 @@ public class Frame extends JFrame {
     private JTextField inputField = new JTextField();
     private JButton buttonSubmit = new JButton("Send");
     private JButton buttonCon = new JButton("Connect");
+    private JButton buttonStart = new JButton("Start game");
 
     private JTextField ipInput;
+    private Connector connector;
 
 
-    public Frame(String title){
+    public Frame(String title) {
         super(title);
         setBounds(30, 30, 1100, 700);
         this.setResizable(false);
@@ -46,11 +55,12 @@ public class Frame extends JFrame {
         this.setVisible(true);
 
         this.setLayout(null);
-        field.setBounds(20,20,800,600);
+        field.setBounds(20, 20, 800, 600);
         field.setBackground(Color.BLACK);
+        field.requestFocusInWindow();
         this.add(field);
 
-        waiting.setBounds(20,625, 800,40);
+        waiting.setBounds(20, 625, 800, 40);
         waiting.setHorizontalAlignment(SwingConstants.CENTER);
         this.add(waiting);
 
@@ -67,12 +77,31 @@ public class Frame extends JFrame {
             public void mouseClicked(MouseEvent e) {
                 log.info("Click");
                 conectToServer();
-//                super.mouseClicked(e);
             }
         });
         this.add(buttonCon);
 
+        buttonStart.setBounds(840, 80, 240, 40);
+        buttonStart.setHorizontalAlignment(SwingConstants.CENTER);
+        buttonStart.setVerticalAlignment(SwingConstants.CENTER);
+        buttonStart.setEnabled(false);
+        buttonStart.addMouseListener(new MouseInputAdapter() {
+            /**
+             * {@inheritDoc}
+             *
+             * @param e
+             */
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                log.info("Click");
+//                getPlayer();
+                startGame();
+            }
+        });
+        this.add(buttonStart);
+
         chat.setBounds(840, 220, 240, 400);
+        chat.setEditable(false);
         this.add(chat);
 
         inputField.setBounds(840, 630, 160, 30);
@@ -85,9 +114,89 @@ public class Frame extends JFrame {
 
     }
 
-    void conectToServer(){
+
+    private void conectToServer() {
         log.info("try conect");
-//        buttonCon.setVisible(false);
+
+        try {
+            connector = new Connector("localhost", 8080);
+            if (connector.getSocket() != null) {
+                buttonCon.setEnabled(false);
+                buttonStart.setEnabled(true);
+                waiting.setText(connector.getSocket().getRemoteSocketAddress().toString());
+                addKeyBinding(field);
+
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            log.info("Error" + e.getStackTrace()[0]);
+        }
+    }
+
+    private void addKeyBinding(JComponent component) {
+        InputMap keyMap = component.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+        keyMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_W, 0), "Up");
+        keyMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_S, 0), "Down");
+        keyMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_A, 0), "Left");
+        keyMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_D, 0), "Right");
+        keyMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0), "Fire");
+
+        component.getActionMap().put("Up", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                action("up");
+            }
+        });
+        component.getActionMap().put("Down", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                action("down");
+            }
+        });
+
+        component.getActionMap().put("Left", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                action("left");
+            }
+        });
+        component.getActionMap().put("Right", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                action("right");
+            }
+        });
+        component.getActionMap().put("Fire", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                action("fire");
+            }
+        });
+
+        component.addMouseListener(new MouseInputAdapter() {
+            /**
+             * {@inheritDoc}
+             *
+             * @param e
+             */
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                log.info("Click on field");
+                component.requestFocus();
+            }
+        });
+
+
+    }
+
+    private void action(String string) {
+        log.info("do action " + string);
+        connector.sendMsg(string);
+    }
+
+    private void getPlayer(){}
+    private void startGame(){
+        connector.sendMsg("startgame");
     }
 
 }

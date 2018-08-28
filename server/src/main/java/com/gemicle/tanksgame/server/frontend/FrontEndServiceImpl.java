@@ -55,6 +55,8 @@ public class FrontEndServiceImpl implements FrontEndService, Subscriber, Runnabl
     public FrontEndServiceImpl(MessageSystem ms) {
         this.messageSystem = ms;
         Thread socketServerThread = new Thread(new SocketServer(this));
+//        socketServerThread.setDaemon(true);
+        socketServerThread.setName("SocketServer");
         socketServerThread.start();
 
 //        this.messageSystem = ms;
@@ -70,6 +72,7 @@ public class FrontEndServiceImpl implements FrontEndService, Subscriber, Runnabl
     @Override
     public void run() {
         this.isRun = true;
+        log.info("Frontend started");
         while (this.isRun) {
             messageSystem.executeForSubscriber(this);
             try {

@@ -26,6 +26,6 @@ public class MsgReplyAllClients extends MsgToFE {
 
     @Override
     protected void execute(FrontEndServiceImpl service) {
-        service.repicateToClients(gameSession);
+//        service.repicateToClients(gameSession);
     }
 }

@@ -32,18 +32,27 @@ public class TanksgameApplicationServer {
     public static void main(String[] args) throws IOException {
 
         final MessageSystem ms = MessageSystem.getInstance();
-        final Thread frontendSrvThread = new Thread(new FrontEndServiceImpl(ms));
+        final FrontEndServiceImpl fe = new FrontEndServiceImpl(ms);
+        ms.registerFrontEnd(fe);
+        final Thread frontendSrvThread = new Thread(fe);
         frontendSrvThread.setDaemon(true);
         frontendSrvThread.setName("FrontEnd");
 
-        final Thread gmSrvThread = new Thread(new GameMechServiceImpl(ms));
+        final GameMechServiceImpl gm = new GameMechServiceImpl(ms);
+        ms.registerGameMech(gm);
+        final Thread gmSrvThread = new Thread(gm);
         gmSrvThread.setDaemon(true);
         gmSrvThread.setName("GameMechanics");
 
         gmSrvThread.start();
         frontendSrvThread.start();
 
-        log.info("Server shutdown");
+//        try {
+//            Thread.currentThread().join();
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+//        log.info("Server shutdown");
     }
 
 

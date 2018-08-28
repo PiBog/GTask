@@ -5,6 +5,7 @@
  */
 package com.gemicle.tanksgame.server.gamemechanic;
 
+import com.gemicle.tanksgame.common.objects.GameObject;
 import com.gemicle.tanksgame.common.objects.landscape.RebirthPlace;
 import com.gemicle.tanksgame.common.objects.units.SimpleTank;
 import com.gemicle.tanksgame.server.frontend.Player;
@@ -71,5 +72,10 @@ public class GameSession {
 
         }
         return position;
+    }
+
+    public Map<Player, GameObject> getGameCondition(){
+//        Map<Player, GameObject>
+        return null;
     }
 }

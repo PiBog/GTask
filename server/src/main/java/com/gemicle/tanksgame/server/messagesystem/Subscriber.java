@@ -5,7 +5,6 @@
  */
 package com.gemicle.tanksgame.server.messagesystem;
 
-import com.gemicle.tanksgame.server.sandbox.Address;
 
 /**
  * Interface for working with subscribers in messaging system
