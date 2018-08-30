@@ -6,6 +6,7 @@
 package com.gemicle.tanksgame.client.sandbox;
 
 import com.gemicle.tanksgame.client.core.Connector;
+import com.gemicle.tanksgame.common.objects.game.Player;
 import lombok.Getter;
 import lombok.extern.log4j.Log4j;
 
@@ -29,7 +30,7 @@ import java.io.IOException;
 @Getter
 public class Frame extends JFrame {
 
-    private CurrentPlayer player;
+    public static Player player;
 
 
     private JPanel field = new JPanel();
