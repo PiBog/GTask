@@ -3,7 +3,7 @@
  *
  *
  */
-package com.gemicle.tanksgame.client.sandbox;
+package com.gemicle.tanksgame.client.core;
 
 import com.gemicle.tanksgame.client.core.Connector;
 import com.gemicle.tanksgame.common.objects.game.Player;
@@ -31,6 +31,7 @@ import java.io.IOException;
 public class Frame extends JFrame {
 
     public static Player player;
+    private Game game;
 
 
     private JPanel field = new JPanel();
@@ -191,13 +192,13 @@ public class Frame extends JFrame {
     }
 
     private void action(String string) {
-        log.info("do action " + string);
-        connector.sendMsg(string);
+        log.info("do action \"" + string + "\"");
+        connector.sendCmd(string);
     }
 
-    private void getPlayer(){}
-    private void startGame(){
-        connector.sendMsg("startgame");
+    private void startGame() {
+        this.game = new Game(this.field);
+        this.action("getPlayer");
     }
 
 }

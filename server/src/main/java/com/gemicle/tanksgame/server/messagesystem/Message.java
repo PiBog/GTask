@@ -23,6 +23,7 @@ public abstract class Message {
      */
     private final Address from;
 
+
     /**
      * Field contains information about a message receiver
      */

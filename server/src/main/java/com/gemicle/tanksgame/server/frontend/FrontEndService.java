@@ -5,8 +5,9 @@
  */
 package com.gemicle.tanksgame.server.frontend;
 
+import com.gemicle.tanksgame.common.objects.game.Player;
 import com.gemicle.tanksgame.server.gamemechanic.GameSession;
-import com.gemicle.tanksgame.server.messagesystem.Message;
+import com.gemicle.tanksgame.server.messagesystem.Subscriber;
 
 import java.util.Map;
 
@@ -17,7 +18,7 @@ import java.util.Map;
  * @version 1.0
  * @since 1.0
  */
-public interface FrontEndService {
+public interface FrontEndService extends Subscriber {
 
     void executePlayerCommand (Player player, String command);
 

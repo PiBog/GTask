@@ -5,13 +5,10 @@
  */
 package com.gemicle.tanksgame.server.gamemechanic;
 
-import com.gemicle.tanksgame.server.frontend.FrontEndService;
 import com.gemicle.tanksgame.server.frontend.MsgReplyAllClients;
-import com.gemicle.tanksgame.server.frontend.MsgToFE;
-import com.gemicle.tanksgame.server.frontend.Player;
+import com.gemicle.tanksgame.common.objects.game.Player;
 import com.gemicle.tanksgame.server.messagesystem.Address;
 import com.gemicle.tanksgame.server.messagesystem.Message;
-import lombok.Getter;
 
 /**
  * An implementation of

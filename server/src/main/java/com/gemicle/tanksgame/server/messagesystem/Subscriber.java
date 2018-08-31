@@ -19,4 +19,6 @@ public interface Subscriber {
      * Method returns address of the subscriber
      */
     Address getAddress();
+
+
 }

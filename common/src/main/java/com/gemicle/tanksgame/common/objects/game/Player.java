@@ -3,12 +3,14 @@
  *
  *
  */
-package com.gemicle.tanksgame.server.frontend;
+package com.gemicle.tanksgame.common.objects.game;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import lombok.extern.log4j.Log4j;
 
+import java.io.Serializable;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -21,7 +23,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 @Log4j
 @Getter
 @Setter
-public class Player {
+@ToString
+public class Player implements Serializable{
 
     /**
      * Initialize and keep integer value

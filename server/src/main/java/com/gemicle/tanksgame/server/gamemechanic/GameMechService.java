@@ -5,7 +5,7 @@
  */
 package com.gemicle.tanksgame.server.gamemechanic;
 
-import com.gemicle.tanksgame.server.frontend.Player;
+import com.gemicle.tanksgame.common.objects.game.Player;
 
 /**
  * Interface for working with subscribers of {@code GameMechService}

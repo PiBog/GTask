@@ -5,6 +5,7 @@
  */
 package com.gemicle.tanksgame.server.frontend;
 
+import com.gemicle.tanksgame.common.objects.game.Player;
 import lombok.Getter;
 import lombok.extern.log4j.Log4j;
 
@@ -30,11 +31,9 @@ public class ClientConnThread extends Thread{
      * I/O streams
      */
     private final BufferedReader in;
-
-    /**
-     * I/O streams
-     */
     private final PrintWriter out;
+    private final ObjectOutputStream oos;
+
 
     public ClientConnThread(FrontEndService frontEndService, Socket clientSocket) throws IOException {
         this.frontEndService = frontEndService;
@@ -44,7 +43,9 @@ public class ClientConnThread extends Thread{
         this.out = new PrintWriter(new OutputStreamWriter(clientSocket.getOutputStream()));
         log.info("Accepted Client: " + "Address - "
                 + clientSocket.getInetAddress().getHostName());
-        
+        this.oos = new ObjectOutputStream(new BufferedOutputStream(clientSocket.getOutputStream()));
+//        oos.writeObject(player);
+//        oos.flush();
     }
 
     @Override
@@ -56,8 +57,20 @@ public class ClientConnThread extends Thread{
             while (!isInterrupted()) {
                 String clientCommand = in.readLine();
                 log.info("Client " + this.player.toString() + " Says :" + clientCommand);
-                frontEndService.executePlayerCommand(this.player, clientCommand);
-
+//                frontEndService.executePlayerCommand(this.player, clientCommand);
+                if (clientCommand!=null) {
+                    if (clientCommand.equalsIgnoreCase("getplayer")){
+                        this.oos.writeObject(player);
+                        oos.flush();
+                        log.info("send "+ player.toString());
+                    }
+                }
+                try {
+                    Thread.sleep(1);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                    log.error(e.getStackTrace()[0].toString(),e);
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();

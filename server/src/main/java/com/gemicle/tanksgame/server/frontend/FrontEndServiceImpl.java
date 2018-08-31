@@ -5,7 +5,7 @@
  */
 package com.gemicle.tanksgame.server.frontend;
 
-import com.gemicle.tanksgame.common.objects.units.SimpleTank;
+import com.gemicle.tanksgame.common.objects.game.Player;
 import com.gemicle.tanksgame.server.config.ThreadsSettings;
 import com.gemicle.tanksgame.server.gamemechanic.GameSession;
 import com.gemicle.tanksgame.server.gamemechanic.MsgProcessingAction;
@@ -16,8 +16,6 @@ import com.gemicle.tanksgame.server.messagesystem.Subscriber;
 import lombok.Getter;
 import lombok.extern.log4j.Log4j;
 
-import java.io.IOException;
-import java.net.ServerSocket;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -32,7 +30,7 @@ import java.util.Set;
  */
 @Log4j
 @Getter
-public class FrontEndServiceImpl implements FrontEndService, Subscriber, Runnable {
+public class FrontEndServiceImpl implements FrontEndService, Runnable {
 
     /**
      * Field contains an address of service

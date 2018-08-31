@@ -47,13 +47,5 @@ public class TanksgameApplicationServer {
         gmSrvThread.start();
         frontendSrvThread.start();
 
-//        try {
-//            Thread.currentThread().join();
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
-//        log.info("Server shutdown");
     }
-
-
 }

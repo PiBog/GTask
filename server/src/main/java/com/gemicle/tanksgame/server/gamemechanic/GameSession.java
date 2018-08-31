@@ -8,13 +8,11 @@ package com.gemicle.tanksgame.server.gamemechanic;
 import com.gemicle.tanksgame.common.objects.GameObject;
 import com.gemicle.tanksgame.common.objects.landscape.RebirthPlace;
 import com.gemicle.tanksgame.common.objects.units.SimpleTank;
-import com.gemicle.tanksgame.server.frontend.Player;
+import com.gemicle.tanksgame.common.objects.game.Player;
 import lombok.Getter;
 import lombok.extern.log4j.Log4j;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -28,16 +26,16 @@ import java.util.concurrent.atomic.AtomicInteger;
 @Getter
 public class GameSession {
 
-    public static AtomicInteger counter = new AtomicInteger();
+//    public static AtomicInteger counter = new AtomicInteger();
 
     public static final int MAX_ACTIVE_PLAYERS = 4;
 
-    private final int sessionId;
-    private final Map<Player, SimpleTank> activePlayers;
+//    private final int sessionId;
+    private final HashMap<Player,SimpleTank> activePlayers;
 
     public GameSession() {
-        this.activePlayers = new HashMap<>(MAX_ACTIVE_PLAYERS);
-        sessionId = counter.getAndIncrement();
+        this.activePlayers = new HashMap<>();
+//        sessionId = counter.getAndIncrement();
     }
 
     public boolean canStart() {
@@ -46,12 +44,9 @@ public class GameSession {
         } else return true;
     }
 
-    public boolean addPlayer(Player player) {
-        if (this.getActivePlayers().size() > 4) {
-            return false;
-        }
-        this.getActivePlayers().put(player, new SimpleTank(applyPosition()));
-        return true;
+    public HashMap<Player,SimpleTank> addPlayer(Player player) {
+        this.getActivePlayers().put(player, new SimpleTank(RebirthPlace.FIRST));
+        return this.getActivePlayers();
     }
 
     private RebirthPlace applyPosition() {
@@ -74,8 +69,4 @@ public class GameSession {
         return position;
     }
 
-    public Map<Player, GameObject> getGameCondition(){
-//        Map<Player, GameObject>
-        return null;
-    }
 }
