@@ -6,6 +6,9 @@
 package com.gemicle.tanksgame.server.gamemechanic;
 
 import com.gemicle.tanksgame.common.objects.game.Player;
+import com.gemicle.tanksgame.common.objects.units.SimpleTank;
+
+import java.util.Map;
 
 /**
  * Interface for working with subscribers of {@code GameMechService}
@@ -17,6 +20,8 @@ import com.gemicle.tanksgame.common.objects.game.Player;
  */
 public interface GameMechService {
 
-    GameSession processingUserCommand(Player player, String command);
+    Map addNewPlayer(Player player);
+
+    Map processingUserCommand(Player player, String command);
 
 }

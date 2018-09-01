@@ -3,8 +3,10 @@
  *
  *
  */
-package com.gemicle.tanksgame.server.frontend;
+package com.gemicle.tanksgame.server.gamemechanic.msg;
 
+import com.gemicle.tanksgame.server.gamemechanic.GameMechService;
+import com.gemicle.tanksgame.server.gamemechanic.GameMechServiceImpl;
 import com.gemicle.tanksgame.server.messagesystem.Address;
 import com.gemicle.tanksgame.server.messagesystem.Message;
 import com.gemicle.tanksgame.server.messagesystem.Subscriber;
@@ -17,19 +19,18 @@ import com.gemicle.tanksgame.server.messagesystem.Subscriber;
  * @version 1.0
  * @since 1.0
  */
-public abstract class MsgToFE extends Message {
+public abstract class MsgToGM extends Message {
 
-    public MsgToFE(Address from, Address to) {
+    public MsgToGM(Address from, Address to) {
         super(from, to);
     }
 
     @Override
     public final void execute(Subscriber subscriber) {
-        if (subscriber instanceof FrontEndService) {
-            execute((FrontEndServiceImpl) subscriber);
+        if (subscriber instanceof GameMechService) {
+            execute((GameMechServiceImpl) subscriber); /*???*/
         }
     }
 
-    protected abstract void execute(FrontEndServiceImpl service);
-
+    protected abstract void execute(GameMechServiceImpl service);
 }

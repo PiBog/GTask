@@ -3,10 +3,11 @@
  *
  *
  */
-package com.gemicle.tanksgame.server.gamemechanic;
+package com.gemicle.tanksgame.server.gamemechanic.msg;
 
-import com.gemicle.tanksgame.server.frontend.MsgReplyAllClients;
+import com.gemicle.tanksgame.server.frontend.msg.MsgReplyAllClients;
 import com.gemicle.tanksgame.common.objects.game.Player;
+import com.gemicle.tanksgame.server.gamemechanic.GameMechServiceImpl;
 import com.gemicle.tanksgame.server.messagesystem.Address;
 import com.gemicle.tanksgame.server.messagesystem.Message;
 
@@ -18,12 +19,12 @@ import com.gemicle.tanksgame.server.messagesystem.Message;
  * @version 1.0
  * @since 1.0
  */
-public class MsgProcessingAction extends MsgToGM {
+public class MsgProcessAction extends MsgToGM {
 
     private Player player;
     private String command;
 
-    public MsgProcessingAction(Address from, Address to, Player player, String command) {
+    public MsgProcessAction(Address from, Address to, Player player, String command) {
         super(from, to);
         this.player = player;
         this.command = command;

@@ -30,8 +30,8 @@ public class GameSession {
 
     public static final int MAX_ACTIVE_PLAYERS = 4;
 
-//    private final int sessionId;
-    private final HashMap<Player,SimpleTank> activePlayers;
+    //    private final int sessionId;
+    private final HashMap<Player, SimpleTank> activePlayers;
 
     public GameSession() {
         this.activePlayers = new HashMap<>();
@@ -44,9 +44,8 @@ public class GameSession {
         } else return true;
     }
 
-    public HashMap<Player,SimpleTank> addPlayer(Player player) {
-        this.getActivePlayers().put(player, new SimpleTank(RebirthPlace.FIRST));
-        return this.getActivePlayers();
+    public void addPlayer(Player player) {
+        this.activePlayers.put(player, new SimpleTank(RebirthPlace.FIRST));
     }
 
     private RebirthPlace applyPosition() {
@@ -67,6 +66,33 @@ public class GameSession {
 
         }
         return position;
+    }
+
+    void toDoAction(Player player, String command) {
+
+        SimpleTank tmpTank = activePlayers.get(player);
+        int location;
+        switch (command) {
+
+            case "up":
+                tmpTank.setPosY(tmpTank.getPosY() - tmpTank.getSpeed());
+                activePlayers.put(player, tmpTank);
+                break;
+            case "down":
+                tmpTank.setPosY(tmpTank.getPosY() + tmpTank.getSpeed());
+                activePlayers.put(player, tmpTank);
+                break;
+            case "left":
+                tmpTank.setPosX(tmpTank.getPosX() - tmpTank.getSpeed());
+                activePlayers.put(player, tmpTank);
+                break;
+            case "right":
+                tmpTank.setPosX(tmpTank.getPosX() + tmpTank.getSpeed());
+                activePlayers.put(player, tmpTank);
+                break;
+        }
+
+
     }
 
 }

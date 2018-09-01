@@ -21,9 +21,9 @@ import java.net.Socket;
 
 @Log4j
 @Getter
-public class ClientConnThread extends Thread{
+public class ClientConnThread extends Thread {
 
-    private final FrontEndService frontEndService;
+    private final FrontEndServiceImpl frontEndService;
     private final Socket clientSocket;
     private final Player player;
 
@@ -35,7 +35,7 @@ public class ClientConnThread extends Thread{
     private final ObjectOutputStream oos;
 
 
-    public ClientConnThread(FrontEndService frontEndService, Socket clientSocket) throws IOException {
+    public ClientConnThread(FrontEndServiceImpl frontEndService, Socket clientSocket) throws IOException {
         this.frontEndService = frontEndService;
         this.clientSocket = clientSocket;
         this.player = new Player();
@@ -45,7 +45,7 @@ public class ClientConnThread extends Thread{
                 + clientSocket.getInetAddress().getHostName());
         this.oos = new ObjectOutputStream(new BufferedOutputStream(clientSocket.getOutputStream()));
 //        oos.writeObject(player);
-//        oos.flush();
+        oos.flush();
     }
 
     @Override
@@ -57,25 +57,39 @@ public class ClientConnThread extends Thread{
             while (!isInterrupted()) {
                 String clientCommand = in.readLine();
                 log.info("Client " + this.player.toString() + " Says :" + clientCommand);
-//                frontEndService.executePlayerCommand(this.player, clientCommand);
-                if (clientCommand!=null) {
-                    if (clientCommand.equalsIgnoreCase("getplayer")){
+                if (clientCommand != null) {
+                    if (clientCommand.startsWith("getPlayer")) {
+                        this.player.setName(clientCommand.substring(10));
                         this.oos.writeObject(player);
-                        oos.flush();
-                        log.info("send "+ player.toString());
+                        this.oos.flush();
+                        log.info("send " + player.toString());
+                    } else if (clientCommand.startsWith("startGame")) {
+                        this.frontEndService.addPlayer(this.player);
+                    } else {
+                        this.frontEndService.executePlayerCommand(this.player, clientCommand);
                     }
                 }
                 try {
                     Thread.sleep(1);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
-                    log.error(e.getStackTrace()[0].toString(),e);
+                    log.error(e.getStackTrace()[0].toString(), e);
                 }
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
 
+    }
+
+    void sendData(Object activePlayers) {
+        try {
+            this.oos.writeObject(activePlayers);
+            this.oos.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+            log.error(e.getStackTrace()[0].toString(), e);
+        }
     }
 
 }

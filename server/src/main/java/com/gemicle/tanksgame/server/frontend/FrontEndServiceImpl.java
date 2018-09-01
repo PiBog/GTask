@@ -8,11 +8,11 @@ package com.gemicle.tanksgame.server.frontend;
 import com.gemicle.tanksgame.common.objects.game.Player;
 import com.gemicle.tanksgame.server.config.ThreadsSettings;
 import com.gemicle.tanksgame.server.gamemechanic.GameSession;
-import com.gemicle.tanksgame.server.gamemechanic.MsgProcessingAction;
+import com.gemicle.tanksgame.server.gamemechanic.msg.MsgAddNewPlayer;
+import com.gemicle.tanksgame.server.gamemechanic.msg.MsgProcessAction;
 import com.gemicle.tanksgame.server.messagesystem.Address;
 import com.gemicle.tanksgame.server.messagesystem.Message;
 import com.gemicle.tanksgame.server.messagesystem.MessageSystem;
-import com.gemicle.tanksgame.server.messagesystem.Subscriber;
 import lombok.Getter;
 import lombok.extern.log4j.Log4j;
 
@@ -42,7 +42,6 @@ public class FrontEndServiceImpl implements FrontEndService, Runnable {
      */
     private final MessageSystem messageSystem;
     private final Map<Player, ClientConnThread> connectedUsers = new HashMap<>();
-//    private final SocketServer socketServer;
 
     private boolean isRun = false;
 
@@ -53,14 +52,9 @@ public class FrontEndServiceImpl implements FrontEndService, Runnable {
     public FrontEndServiceImpl(MessageSystem ms) {
         this.messageSystem = ms;
         Thread socketServerThread = new Thread(new SocketServer(this));
-//        socketServerThread.setDaemon(true);
         socketServerThread.setName("SocketServer");
         socketServerThread.start();
 
-//        this.messageSystem = ms;
-//        this.socketServer = new SocketServer(connectedUsers);
-//        Thread socketServerThread = new Thread(socketServer);
-//        socketServerThread.start();
     }
 
 
@@ -84,19 +78,25 @@ public class FrontEndServiceImpl implements FrontEndService, Runnable {
     }
 
     @Override
+    public void addPlayer(Player player) {
+        Message msgAddPlayer = new MsgAddNewPlayer(getAddress(),
+                                messageSystem.getGameMechAddress(), player);
+        this.messageSystem.sendMsg(msgAddPlayer);
+    }
+
+    @Override
     public void executePlayerCommand(Player player, String command) {
-        Message msgDoAction = new MsgProcessingAction(getAddress(),
+        Message msgDoAction = new MsgProcessAction(getAddress(),
                 getMessageSystem().getGameMechAddress(), player, command);
         this.messageSystem.sendMsg(msgDoAction);
     }
 
     @Override
-    public void replicateToClients(GameSession gameSession) {
-        Set<Player> activePlayers = new HashSet<>();
-        activePlayers = gameSession.getActivePlayers().keySet();
+    public void replicateToClients(Map gameSession) {
+        Set<Player> activePlayers = gameSession.keySet();
         for (Player player : activePlayers){
             if(connectedUsers.containsKey(player)){
-                connectedUsers.get(player).getOut();
+                connectedUsers.get(player).sendData(gameSession);
             }
         }
     }

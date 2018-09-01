@@ -6,11 +6,13 @@
 package com.gemicle.tanksgame.client.core;
 
 import com.gemicle.tanksgame.common.objects.game.Player;
+import com.gemicle.tanksgame.common.objects.units.SimpleTank;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
 
 import javax.swing.*;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -26,7 +28,7 @@ import java.util.List;
 public class Game {
 
     private Player player;
-    private List<Player> players;
+    private HashMap<Player,SimpleTank> activePlayers;
 
     private JComponent field;
 
@@ -34,7 +36,4 @@ public class Game {
         this.field = field;
     }
 
-    public void refresh(){
-
-    }
 }

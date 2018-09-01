@@ -7,6 +7,8 @@ package com.gemicle.tanksgame.client.core;
 
 import com.gemicle.tanksgame.client.core.Connector;
 import com.gemicle.tanksgame.common.objects.game.Player;
+import com.gemicle.tanksgame.common.objects.units.SimpleTank;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.extern.log4j.Log4j;
 
@@ -17,11 +19,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
+import java.util.Map;
 
 /**
  * An implementation of
  *
- * @param
  * @author Bohdan Pysarenko
  * @version 1.0
  * @since 1.0
@@ -31,7 +33,8 @@ import java.io.IOException;
 public class Frame extends JFrame {
 
     public static Player player;
-    private Game game;
+    @Getter(AccessLevel.NONE)
+    private Map<Player,SimpleTank> game;
 
 
     private JPanel field = new JPanel();
@@ -40,6 +43,7 @@ public class Frame extends JFrame {
 
     private JTextArea chat = new JTextArea();
     private JTextField inputField = new JTextField();
+    private JTextField nameField = new JTextField("Anonymous");
     private JButton buttonSubmit = new JButton("Send");
     private JButton buttonCon = new JButton("Connect");
     private JButton buttonStart = new JButton("Start game");
@@ -102,6 +106,10 @@ public class Frame extends JFrame {
         });
         this.add(buttonStart);
 
+        nameField.setBounds(840, 140, 240, 40);
+        nameField.setEnabled(true);
+        this.add(nameField);
+
         chat.setBounds(840, 220, 240, 400);
         chat.setEditable(false);
         this.add(chat);
@@ -121,14 +129,17 @@ public class Frame extends JFrame {
         log.info("try conect");
 
         try {
-            connector = new Connector("localhost", 8080);
+            connector = new Connector("localhost", 8080, this);
             if (connector.getSocket() != null) {
                 buttonCon.setEnabled(false);
                 buttonStart.setEnabled(true);
                 waiting.setText(connector.getSocket().getRemoteSocketAddress().toString());
                 addKeyBinding(field);
 
+            } else {
+                log.info("Can't get connection");
             }
+            this.action("getPlayer:"+nameField.getText());
         } catch (IOException e) {
             e.printStackTrace();
             log.info("Error" + e.getStackTrace()[0]);
@@ -197,8 +208,19 @@ public class Frame extends JFrame {
     }
 
     private void startGame() {
-        this.game = new Game(this.field);
-        this.action("getPlayer");
+        this.buttonStart.setEnabled(false);
+        this.nameField.setEnabled(false);
+        this.waiting.setText(player.getName());
+        this.action("startGame");
+    }
+
+    public void refresh(Map<Player,SimpleTank> gameData){
+        this.game = gameData;
+        log.info("repaint screen");
+        for (Map.Entry<Player,SimpleTank> item : game.entrySet()){
+
+        }
+        this.field.add();
     }
 
 }

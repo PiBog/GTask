@@ -27,13 +27,13 @@ import java.util.Map;
 @Log4j
 public class SocketServer implements Runnable {
 
-    private final FrontEndService frontEndService;
+    private final FrontEndServiceImpl frontEndService;
     private ServerSocket server = null;
     private int port;
     private Socket clientSocket = null;
     private boolean isActive = true;
 
-    public SocketServer(FrontEndService frontEndService){
+    public SocketServer(FrontEndServiceImpl frontEndService){
         this.port = 8080;
         this.frontEndService = frontEndService;
     }

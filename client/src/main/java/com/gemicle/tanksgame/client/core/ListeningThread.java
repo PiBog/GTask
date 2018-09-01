@@ -9,7 +9,7 @@ package com.gemicle.tanksgame.client.core;
 import lombok.extern.log4j.Log4j;
 
 /**
- * An implementation of
+ * Class describes thread tha listen server
  *
  * @author Bohdan Pysarenko
  * @version 1.0
@@ -19,11 +19,9 @@ import lombok.extern.log4j.Log4j;
 public class ListeningThread implements Runnable {
 
     private Connector server;
-    private boolean isListen = false;
 
     public ListeningThread(Connector connector){
         this.server = connector;
-        this.isListen = true;
     }
 
     /**
@@ -31,10 +29,8 @@ public class ListeningThread implements Runnable {
      */
     @Override
     public void run() {
-        log.info("start listen");
+        log.info("start listening");
         server.listen();
-//        while(isListen){
-//        }
-        log.info("ending process");
+        log.info("end listening");
     }
 }

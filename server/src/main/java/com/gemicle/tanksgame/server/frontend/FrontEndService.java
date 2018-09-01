@@ -20,9 +20,10 @@ import java.util.Map;
  */
 public interface FrontEndService extends Subscriber {
 
+    void addPlayer(Player player);
+
     void executePlayerCommand (Player player, String command);
 
-    void replicateToClients(GameSession gameSession);
+    void replicateToClients(Map gameSession);
 
-    Map<Player, ClientConnThread> getConnectedUsers();
 }

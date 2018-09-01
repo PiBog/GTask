@@ -6,6 +6,7 @@
 package com.gemicle.tanksgame.client.core;
 
 import com.gemicle.tanksgame.common.objects.game.Player;
+import com.gemicle.tanksgame.common.objects.units.SimpleTank;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,18 +14,21 @@ import lombok.extern.log4j.Log4j;
 
 import java.io.*;
 import java.net.Socket;
+import java.util.Map;
 
 /**
- * Class implement instance of server connector. Contains.
+ * Class implement instance of server connector.
  *
  * @author Bohdan Pysarenko
+ * @version 1.0
  * @since 1.0
  */
 @Log4j
 @Getter
 public class Connector {
 
-    public Object game;
+    private Frame mainFrame;
+    private Object gameData;
     private Socket socket;
     @Getter(AccessLevel.NONE)
     private PrintWriter out;
@@ -39,11 +43,12 @@ public class Connector {
      * @param ip   The ip address of server for connection
      * @param port The port on wich server listens new connections
      */
-    public Connector(String ip, int port) throws IOException {
+    public Connector(String ip, int port, Frame frame) throws IOException {
         this.socket = new Socket(ip, port);
         this.out = new PrintWriter(socket.getOutputStream(), true);
-        this.ois = new ObjectInputStream(socket.getInputStream());
+        this.ois = new ObjectInputStream(new BufferedInputStream(socket.getInputStream()));
         this.isAlive = true;
+        this.mainFrame = frame;
         log.info("Connected");
         Thread listener = new Thread(new ListeningThread(this));
         listener.setDaemon(true);
@@ -60,15 +65,26 @@ public class Connector {
     }
 
     public void listen() {
+
         while (isAlive) {
-            try /*(ObjectInputStream inputStream = this.ois)*/ {
+            try {
+
                 log.info("ready to listen");
-                game = this.ois.readObject();
-                log.info("read object " + game.toString());
-                Thread.sleep(3000);
+
+                gameData = this.ois.readObject();
+
+                log.info("read object " + gameData.toString());
+
+                if (gameData instanceof Player){
+                    Frame.player = (Player) gameData;
+                } else if (gameData instanceof Map) {
+                    this.mainFrame.refresh((Map<Player,SimpleTank>) gameData);
+                }
+                Thread.sleep(1);
 
             } catch (Exception e) {
                 e.printStackTrace();
+                log.error(""+e.getStackTrace()[0].toString());
             }
 
         }

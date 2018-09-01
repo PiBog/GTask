@@ -1,10 +1,10 @@
 package com.gemicle.tanksgame.common.objects.units;
 
-import com.gemicle.tanksgame.common.objects.ID;
 import com.gemicle.tanksgame.common.objects.landscape.RebirthPlace;
 import lombok.Getter;
 
 import java.awt.*;
+import java.io.Serializable;
 
 @Getter
 public class SimpleTank extends Machine {

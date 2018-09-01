@@ -3,10 +3,13 @@
  *
  *
  */
-package com.gemicle.tanksgame.server.frontend;
+package com.gemicle.tanksgame.server.frontend.msg;
 
+import com.gemicle.tanksgame.server.frontend.FrontEndServiceImpl;
 import com.gemicle.tanksgame.server.gamemechanic.GameSession;
 import com.gemicle.tanksgame.server.messagesystem.Address;
+
+import java.util.Map;
 
 /**
  * An implementation of
@@ -17,15 +20,15 @@ import com.gemicle.tanksgame.server.messagesystem.Address;
  */
 public class MsgReplyAllClients extends MsgToFE {
 
-    private GameSession gameSession;
+    private Map gameSession;
 
-    public MsgReplyAllClients(Address from, Address to, GameSession gameSession){
+    public MsgReplyAllClients(Address from, Address to, Map gameSession){
         super(from, to);
         this.gameSession = gameSession;
     }
 
     @Override
     protected void execute(FrontEndServiceImpl service) {
-//        service.repicateToClients(gameSession);
+        service.replicateToClients(gameSession);
     }
 }

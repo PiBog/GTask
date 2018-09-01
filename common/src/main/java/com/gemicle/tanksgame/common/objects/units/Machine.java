@@ -4,6 +4,7 @@ import com.gemicle.tanksgame.common.objects.GameObject;
 import lombok.Getter;
 import lombok.Setter;
 
+@Getter
 public abstract class Machine extends GameObject {
 
     /**machine features*/
