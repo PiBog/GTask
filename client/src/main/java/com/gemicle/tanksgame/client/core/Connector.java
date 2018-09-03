@@ -28,7 +28,6 @@ import java.util.Map;
 public class Connector {
 
     private Frame mainFrame;
-    private Object gameData;
     private Socket socket;
     @Getter(AccessLevel.NONE)
     private PrintWriter out;
@@ -69,6 +68,7 @@ public class Connector {
         while (isAlive) {
             try {
 
+                Object gameData;
                 log.info("ready to listen");
 
                 gameData = this.ois.readObject();

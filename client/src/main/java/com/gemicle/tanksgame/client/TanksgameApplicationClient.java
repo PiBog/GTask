@@ -21,7 +21,7 @@ import java.io.IOException;
 public class TanksgameApplicationClient {
 
     /**
-     * Application entry point. Starts client.
+     * Application entry popint. Starts client.
      *
      * @param  args array of input string parameters(not uses)
      * @throws IOException {@inheritDoc}

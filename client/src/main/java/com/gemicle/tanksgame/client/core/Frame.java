@@ -18,7 +18,11 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferStrategy;
+import java.awt.image.BufferedImage;
+import java.awt.image.DataBufferInt;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Map;
 
 /**
@@ -33,8 +37,11 @@ import java.util.Map;
 public class Frame extends JFrame {
 
     public static Player player;
-    @Getter(AccessLevel.NONE)
-    private Map<Player,SimpleTank> game;
+
+    private BufferedImage image;
+    private Graphics g;
+    private int[] bufferedData;
+    private Color clearColor = Color.BLACK
 
 
     private JPanel field = new JPanel();
@@ -64,6 +71,7 @@ public class Frame extends JFrame {
         field.setBounds(20, 20, 800, 600);
         field.setBackground(Color.BLACK);
         field.requestFocusInWindow();
+        field.setIgnoreRepaint(true);
         this.add(field);
 
         waiting.setBounds(20, 625, 800, 40);
@@ -121,6 +129,12 @@ public class Frame extends JFrame {
         buttonSubmit.setHorizontalAlignment(SwingConstants.CENTER);
         buttonSubmit.setVerticalAlignment(SwingConstants.CENTER);
         this.add(buttonSubmit);
+
+        image = new BufferedImage(field.getWidth(),field.getHeight(),BufferedImage.TYPE_INT_ARGB);
+        g=image.getGraphics();
+//        bufferedData = ((DataBufferInt)this.getBuf)
+//        this.field.createBufferStrategy(2);
+//        this.bufStrategy = this.getBufferStrategy();
 
     }
 
@@ -215,12 +229,29 @@ public class Frame extends JFrame {
     }
 
     public void refresh(Map<Player,SimpleTank> gameData){
-        this.game = gameData;
         log.info("repaint screen");
-        for (Map.Entry<Player,SimpleTank> item : game.entrySet()){
-
+//        field.setBackground(Color.BLACK);
+        Graphics2D g2d = (Graphics2D) g;
+        for (Map.Entry<Player,SimpleTank> item : gameData.entrySet()){
+            g2d.setColor(Color.RED);
+            Player curPlayer = item.getKey();
+            if (curPlayer.equals(player)){
+                g2d.setColor(Color.GREEN);
+            }
+            SimpleTank tank = item.getValue();
+            g2d.fillRect(tank.getPosX(), tank.getPosY(), 40,40);
         }
-        this.field.add();
+
+        g2d.drawImage(image,0,0,null);
+//        g2d.dispose();
+//        bufStrategy.show();
+//        field.repaint();
+
+//        this.field.add();
+    }
+
+    private void clear(){
+//        Arrays.fill(bufferedData, clearColor);
     }
 
 }
