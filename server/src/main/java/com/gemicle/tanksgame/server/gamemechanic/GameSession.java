@@ -26,16 +26,10 @@ import java.util.concurrent.atomic.AtomicInteger;
 @Getter
 public class GameSession {
 
-//    public static AtomicInteger counter = new AtomicInteger();
-
-    public static final int MAX_ACTIVE_PLAYERS = 4;
-
-    //    private final int sessionId;
     private final HashMap<Player, SimpleTank> activePlayers;
 
     public GameSession() {
         this.activePlayers = new HashMap<>();
-//        sessionId = counter.getAndIncrement();
     }
 
     public boolean canStart() {
@@ -71,7 +65,6 @@ public class GameSession {
     void toDoAction(Player player, String command) {
 
         SimpleTank tmpTank = activePlayers.get(player);
-        int location;
         switch (command) {
 
             case "up":
@@ -92,6 +85,18 @@ public class GameSession {
                 break;
         }
 
+
+    }
+
+    void updatePlayers(Set<Player> players){
+
+        HashMap<Player, SimpleTank> tmpActivePlayers = new HashMap<>(activePlayers);
+        for (Map.Entry<Player, SimpleTank> item : tmpActivePlayers.entrySet()){
+            Player tmpPlayer = item.getKey();
+            if (!players.contains(tmpPlayer)){
+                activePlayers.remove(tmpPlayer);
+            }
+        }
 
     }
 

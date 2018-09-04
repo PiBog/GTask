@@ -11,6 +11,7 @@ import lombok.ToString;
 import lombok.extern.log4j.Log4j;
 
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**

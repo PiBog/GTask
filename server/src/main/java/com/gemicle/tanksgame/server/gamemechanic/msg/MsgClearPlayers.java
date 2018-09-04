@@ -5,35 +5,34 @@
  */
 package com.gemicle.tanksgame.server.gamemechanic.msg;
 
-import com.gemicle.tanksgame.server.frontend.msg.MsgReplyAllClients;
 import com.gemicle.tanksgame.common.objects.game.Player;
+import com.gemicle.tanksgame.server.frontend.msg.MsgReplyAllClients;
 import com.gemicle.tanksgame.server.gamemechanic.GameMechServiceImpl;
 import com.gemicle.tanksgame.server.messagesystem.Address;
 import com.gemicle.tanksgame.server.messagesystem.Message;
 
+import java.util.Set;
+
 /**
  * An implementation of
  *
- * @param
  * @author Bohdan Pysarenko
  * @version 1.0
  * @since 1.0
  */
-public class MsgProcessAction extends MsgToGM {
+public class MsgClearPlayers extends MsgToGM {
 
-    private Player player;
-    private String command;
+    private Set<Player> players;
 
-    public MsgProcessAction(Address from, Address to, Player player, String command) {
+    public MsgClearPlayers(Address from, Address to, Set<Player> players) {
         super(from, to);
-        this.player = player;
-        this.command = command;
+        this.players = players;
     }
 
     @Override
     protected void execute(GameMechServiceImpl service) {
-        Message response = new MsgReplyAllClients(getTo(), getFrom(),
-                service.processingPlayerCommand(player, command));
-        service.getMessageSystem().sendMsg(response);
+        Message replyAllPlayers = new MsgReplyAllClients(this.getTo(), this.getFrom(),
+                service.refreshPlayers(players));
+        service.getMessageSystem().sendMsg(replyAllPlayers);
     }
 }

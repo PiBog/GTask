@@ -20,15 +20,15 @@ import java.util.Map;
  */
 public class MsgReplyAllClients extends MsgToFE {
 
-    private Map gameSession;
+    private Map gameSessionPlayers;
 
-    public MsgReplyAllClients(Address from, Address to, Map gameSession){
+    public MsgReplyAllClients(Address from, Address to, Map gameSessionPlayers){
         super(from, to);
-        this.gameSession = gameSession;
+        this.gameSessionPlayers = gameSessionPlayers;
     }
 
     @Override
     protected void execute(FrontEndServiceImpl service) {
-        service.replicateToClients(gameSession);
+        service.replicateToClients(gameSessionPlayers);
     }
 }

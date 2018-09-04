@@ -41,10 +41,21 @@ public class Frame extends JFrame {
     private BufferedImage image;
     private Graphics g;
     private int[] bufferedData;
-    private Color clearColor = Color.BLACK
+    private Color clearColor;
 
 
-    private JPanel field = new JPanel();
+    private JPanel field = new JPanel(){
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        protected void paintComponent(Graphics g) {
+            super.paintComponent(g);
+            Graphics2D g2d = (Graphics2D) g;
+            g2d.drawImage(image,0,0,this);
+//            g.dispose();
+        }
+    };
     private JLabel waiting = new JLabel("Not connected.");
     private JLabel label3;
 
@@ -71,7 +82,7 @@ public class Frame extends JFrame {
         field.setBounds(20, 20, 800, 600);
         field.setBackground(Color.BLACK);
         field.requestFocusInWindow();
-        field.setIgnoreRepaint(true);
+//        field.setIgnoreRepaint(true);
         this.add(field);
 
         waiting.setBounds(20, 625, 800, 40);
@@ -132,9 +143,8 @@ public class Frame extends JFrame {
 
         image = new BufferedImage(field.getWidth(),field.getHeight(),BufferedImage.TYPE_INT_ARGB);
         g=image.getGraphics();
-//        bufferedData = ((DataBufferInt)this.getBuf)
-//        this.field.createBufferStrategy(2);
-//        this.bufStrategy = this.getBufferStrategy();
+        bufferedData = ((DataBufferInt)image.getRaster().getDataBuffer()).getData();
+        clearColor = field.getBackground();
 
     }
 
@@ -230,28 +240,25 @@ public class Frame extends JFrame {
 
     public void refresh(Map<Player,SimpleTank> gameData){
         log.info("repaint screen");
-//        field.setBackground(Color.BLACK);
-        Graphics2D g2d = (Graphics2D) g;
-        for (Map.Entry<Player,SimpleTank> item : gameData.entrySet()){
-            g2d.setColor(Color.RED);
+        clear();
+        Map<Player,SimpleTank> session = gameData;
+        for (Map.Entry<Player,SimpleTank> item : session.entrySet()){
+            g.setColor(Color.RED);
             Player curPlayer = item.getKey();
-            if (curPlayer.equals(player)){
-                g2d.setColor(Color.GREEN);
+            if (curPlayer.getId() == (player.getId())){
+                g.setColor(Color.GREEN);
             }
             SimpleTank tank = item.getValue();
-            g2d.fillRect(tank.getPosX(), tank.getPosY(), 40,40);
+            g.fillRect(tank.getPosX(), tank.getPosY(), 40,40);
+            log.info(""+tank.getPosX()+" "+tank.getPosY());
         }
 
-        g2d.drawImage(image,0,0,null);
-//        g2d.dispose();
-//        bufStrategy.show();
-//        field.repaint();
+        field.repaint();
 
-//        this.field.add();
     }
 
     private void clear(){
-//        Arrays.fill(bufferedData, clearColor);
+        Arrays.fill(bufferedData, clearColor.getRGB());
     }
 
 }

@@ -6,6 +6,7 @@
 package com.gemicle.tanksgame.server.frontend;
 
 import com.gemicle.tanksgame.common.objects.game.Player;
+import com.gemicle.tanksgame.common.objects.units.SimpleTank;
 import com.gemicle.tanksgame.server.gamemechanic.GameSession;
 import com.gemicle.tanksgame.server.messagesystem.Subscriber;
 
@@ -24,6 +25,6 @@ public interface FrontEndService extends Subscriber {
 
     void executePlayerCommand (Player player, String command);
 
-    void replicateToClients(Map gameSession);
+    void replicateToClients(Map<Player, SimpleTank> gameSession);
 
 }

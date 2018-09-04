@@ -68,23 +68,32 @@ public class Connector {
         while (isAlive) {
             try {
 
-                Object gameData;
                 log.info("ready to listen");
 
-                gameData = this.ois.readObject();
+                Object gameData = this.ois.readObject();
+                log.info(gameData.toString());
 
                 log.info("read object " + gameData.toString());
 
-                if (gameData instanceof Player){
+                if (gameData instanceof Player) {
                     Frame.player = (Player) gameData;
                 } else if (gameData instanceof Map) {
-                    this.mainFrame.refresh((Map<Player,SimpleTank>) gameData);
+
+                    Map<Player,SimpleTank> session = (Map<Player,SimpleTank>) gameData;
+
+//                    for (Map.Entry item : session.entrySet()) {
+//                        SimpleTank tank = (SimpleTank) item.getValue();
+//                        log.info(" " + tank.getPosY());
+//
+//                    }
+                    this.mainFrame.refresh(session);
+
                 }
                 Thread.sleep(1);
 
             } catch (Exception e) {
                 e.printStackTrace();
-                log.error(""+e.getStackTrace()[0].toString());
+                log.error("" + e.getStackTrace()[0].toString());
             }
 
         }

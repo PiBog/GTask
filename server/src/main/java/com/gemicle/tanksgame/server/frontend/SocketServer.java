@@ -33,7 +33,7 @@ public class SocketServer implements Runnable {
     private Socket clientSocket = null;
     private boolean isActive = true;
 
-    public SocketServer(FrontEndServiceImpl frontEndService){
+    public SocketServer(FrontEndServiceImpl frontEndService) {
         this.port = 8080;
         this.frontEndService = frontEndService;
     }
@@ -58,7 +58,8 @@ public class SocketServer implements Runnable {
                 ClientConnThread clientThread = new ClientConnThread(frontEndService, clientSocket);
                 clientThread.start();
             } catch (IOException e) {
-                e.printStackTrace();
+//                e.printStackTrace();
+                log.error(e.getStackTrace().toString());
             }
 
         }

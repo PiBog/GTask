@@ -6,9 +6,11 @@
 package com.gemicle.tanksgame.server.frontend;
 
 import com.gemicle.tanksgame.common.objects.game.Player;
+import com.gemicle.tanksgame.common.objects.units.SimpleTank;
 import com.gemicle.tanksgame.server.config.ThreadsSettings;
 import com.gemicle.tanksgame.server.gamemechanic.GameSession;
 import com.gemicle.tanksgame.server.gamemechanic.msg.MsgAddNewPlayer;
+import com.gemicle.tanksgame.server.gamemechanic.msg.MsgClearPlayers;
 import com.gemicle.tanksgame.server.gamemechanic.msg.MsgProcessAction;
 import com.gemicle.tanksgame.server.messagesystem.Address;
 import com.gemicle.tanksgame.server.messagesystem.Message;
@@ -66,6 +68,7 @@ public class FrontEndServiceImpl implements FrontEndService, Runnable {
         this.isRun = true;
         log.info("Frontend started");
         while (this.isRun) {
+            refreshConnections();
             messageSystem.executeForSubscriber(this);
             try {
                 Thread.sleep(ThreadsSettings.SERVICE_SLEEP_TIME);
@@ -75,6 +78,27 @@ public class FrontEndServiceImpl implements FrontEndService, Runnable {
         }
 
 
+    }
+
+    private void refreshConnections(){
+        Map<Player, ClientConnThread> tmpConnectedUsers = new HashMap<>(connectedUsers);
+        if (tmpConnectedUsers.size()>0){
+            for (Map.Entry<Player, ClientConnThread> item: tmpConnectedUsers.entrySet()){
+                if(!item.getValue().isAlive()){
+                    connectedUsers.remove(item.getKey());
+                }
+            }
+        }
+        Set<Player> clearedSet = connectedUsers.keySet();
+        if(clearedSet.size()!=tmpConnectedUsers.size()){
+            clearGameSession(clearedSet);
+        }
+    }
+
+    private void clearGameSession(Set<Player> players){
+        Message msgClearPlayers = new MsgClearPlayers(getAddress(),
+                                messageSystem.getGameMechAddress(), players);
+        this.messageSystem.sendMsg(msgClearPlayers);
     }
 
     @Override
@@ -92,11 +116,12 @@ public class FrontEndServiceImpl implements FrontEndService, Runnable {
     }
 
     @Override
-    public void replicateToClients(Map gameSession) {
-        Set<Player> activePlayers = gameSession.keySet();
+    public void replicateToClients(Map<Player, SimpleTank> gameSessionPlayers) {
+        Set<Player> activePlayers = gameSessionPlayers.keySet();
         for (Player player : activePlayers){
             if(connectedUsers.containsKey(player)){
-                connectedUsers.get(player).sendData(gameSession);
+                connectedUsers.get(player).sendData(gameSessionPlayers);
+
             }
         }
     }

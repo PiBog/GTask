@@ -17,6 +17,7 @@ import lombok.extern.log4j.Log4j;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Class responsible game mechanics
@@ -81,7 +82,13 @@ public class GameMechServiceImpl implements GameMechService, Subscriber, Runnabl
     }
 
     @Override
-    public Map processingUserCommand(Player player, String command) {
+    public Map refreshPlayers(Set<Player> players) {
+         this.gameSession.updatePlayers(players);
+        return this.gameSession.getActivePlayers();
+    }
+
+    @Override
+    public Map processingPlayerCommand(Player player, String command) {
         this.gameSession.toDoAction(player, command);
         return this.gameSession.getActivePlayers();
     }

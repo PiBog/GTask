@@ -6,11 +6,13 @@
 package com.gemicle.tanksgame.server.frontend;
 
 import com.gemicle.tanksgame.common.objects.game.Player;
+import com.gemicle.tanksgame.common.objects.units.SimpleTank;
 import lombok.Getter;
 import lombok.extern.log4j.Log4j;
 
 import java.io.*;
 import java.net.Socket;
+import java.util.Map;
 
 /**
  * Implementation of the main class of the server part of the Tanksgame application.
@@ -62,7 +64,6 @@ public class ClientConnThread extends Thread {
                         this.player.setName(clientCommand.substring(10));
                         this.oos.writeObject(player);
                         this.oos.flush();
-                        log.info("send " + player.toString());
                     } else if (clientCommand.startsWith("startGame")) {
                         this.frontEndService.addPlayer(this.player);
                     } else {
@@ -72,20 +73,22 @@ public class ClientConnThread extends Thread {
                 try {
                     Thread.sleep(1);
                 } catch (InterruptedException e) {
-                    e.printStackTrace();
-                    log.error(e.getStackTrace()[0].toString(), e);
+//                    e.printStackTrace();
+                    log.error(e.getStackTrace()[0]);
                 }
             }
         } catch (IOException e) {
-            e.printStackTrace();
+//            e.printStackTrace();
+            log.error(e.getStackTrace().toString());
         }
 
     }
 
-    void sendData(Object activePlayers) {
+    void sendData(Map<Player, SimpleTank> activePlayers) {
         try {
             this.oos.writeObject(activePlayers);
             this.oos.flush();
+            this.oos.reset();
         } catch (IOException e) {
             e.printStackTrace();
             log.error(e.getStackTrace()[0].toString(), e);
