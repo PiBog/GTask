@@ -6,16 +6,12 @@
 package com.gemicle.tanksgame.server.gamemechanic;
 
 import com.gemicle.tanksgame.common.objects.game.Player;
-import com.gemicle.tanksgame.common.objects.units.SimpleTank;
-import com.gemicle.tanksgame.server.frontend.msg.MsgReplyAllClients;
 import com.gemicle.tanksgame.server.messagesystem.Address;
-import com.gemicle.tanksgame.server.messagesystem.Message;
 import com.gemicle.tanksgame.server.messagesystem.MessageSystem;
 import com.gemicle.tanksgame.server.messagesystem.Subscriber;
 import lombok.Getter;
 import lombok.extern.log4j.Log4j;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
@@ -29,6 +25,11 @@ import java.util.Set;
 @Log4j
 @Getter
 public class GameMechServiceImpl implements GameMechService, Subscriber, Runnable {
+
+    /**
+     * Period of game mechanics cycle iteration
+     */
+    private static final int GM_CYCLE_PERIOD = 15;
 
     /**
      * Field contains an address of service
@@ -66,7 +67,7 @@ public class GameMechServiceImpl implements GameMechService, Subscriber, Runnabl
             messageSystem.executeForSubscriber(this);
         }
         try {
-            Thread.sleep(30);
+            Thread.sleep(GM_CYCLE_PERIOD);
         } catch (InterruptedException e) {
             log.error(""+e.getStackTrace()[0].toString());
         }
