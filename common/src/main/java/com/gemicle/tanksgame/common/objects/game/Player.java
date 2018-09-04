@@ -8,20 +8,18 @@ package com.gemicle.tanksgame.common.objects.game;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import lombok.extern.log4j.Log4j;
 
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- * A class contains information about connected player
+ * A POJO class contains information about connected player
  *
  * @author Bohdan Pysarenko
  * @version 1.0
  * @since 1.0
  */
-@Log4j
 @Getter
 @Setter
 @ToString

@@ -73,6 +73,10 @@ public class GameMechServiceImpl implements GameMechService, Subscriber, Runnabl
         }
     }
 
+    private Map iterateGame(){
+       return null;
+    }
+
     @Override
     public Map addNewPlayer(Player player) {
         if (gameSession == null) {

@@ -6,9 +6,8 @@
 package com.gemicle.tanksgame.server.frontend;
 
 import com.gemicle.tanksgame.common.objects.game.Player;
-import com.gemicle.tanksgame.common.objects.units.SimpleTank;
+import com.gemicle.tanksgame.common.objects.units.AverageJoe;
 import com.gemicle.tanksgame.server.config.ThreadsSettings;
-import com.gemicle.tanksgame.server.gamemechanic.GameSession;
 import com.gemicle.tanksgame.server.gamemechanic.msg.MsgAddNewPlayer;
 import com.gemicle.tanksgame.server.gamemechanic.msg.MsgClearPlayers;
 import com.gemicle.tanksgame.server.gamemechanic.msg.MsgProcessAction;
@@ -19,7 +18,6 @@ import lombok.Getter;
 import lombok.extern.log4j.Log4j;
 
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -116,7 +114,7 @@ public class FrontEndServiceImpl implements FrontEndService, Runnable {
     }
 
     @Override
-    public void replicateToClients(Map<Player, SimpleTank> gameSessionPlayers) {
+    public void replicateToClients(Map<Player, AverageJoe> gameSessionPlayers) {
         Set<Player> activePlayers = gameSessionPlayers.keySet();
         for (Player player : activePlayers){
             if(connectedUsers.containsKey(player)){

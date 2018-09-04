@@ -5,16 +5,15 @@
  */
 package com.gemicle.tanksgame.common.objects;
 
-import lombok.Getter;
-
 /**
- * Class contains id for three types of game objects
+ * An interface contains method to change armor from destructable objects
  *
  * @author Bohdan Pysarenko
  * @version 1.0
  * @since 1.0
  */
-@Getter
-public enum ID {
-    TANK, WALL, BULLET
+
+public interface Destructable {
+    int getArmor();
+    void setArmor(int armor);
 }

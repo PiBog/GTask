@@ -5,15 +5,13 @@
  */
 package com.gemicle.tanksgame.server.gamemechanic;
 
-import com.gemicle.tanksgame.common.objects.GameObject;
-import com.gemicle.tanksgame.common.objects.landscape.RebirthPlace;
-import com.gemicle.tanksgame.common.objects.units.SimpleTank;
+import com.gemicle.tanksgame.common.objects.EntryPoint;
+import com.gemicle.tanksgame.common.objects.units.AverageJoe;
 import com.gemicle.tanksgame.common.objects.game.Player;
 import lombok.Getter;
 import lombok.extern.log4j.Log4j;
 
 import java.util.*;
-import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Class contains information about active game session
@@ -26,7 +24,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 @Getter
 public class GameSession {
 
-    private final HashMap<Player, SimpleTank> activePlayers;
+    private final HashMap<Player, AverageJoe> activePlayers;
 
     public GameSession() {
         this.activePlayers = new HashMap<>();
@@ -39,23 +37,23 @@ public class GameSession {
     }
 
     public void addPlayer(Player player) {
-        this.activePlayers.put(player, new SimpleTank(RebirthPlace.FIRST));
+        this.activePlayers.put(player, new AverageJoe(EntryPoint.FIRST));
     }
 
-    private RebirthPlace applyPosition() {
-        RebirthPlace position = null;
+    private EntryPoint applyPosition() {
+        EntryPoint position = null;
         switch (activePlayers.size()) {
             case 0:
-                position = RebirthPlace.FIRST;
+                position = EntryPoint.FIRST;
                 break;
             case 1:
-                position = RebirthPlace.SECOND;
+                position = EntryPoint.SECOND;
                 break;
             case 2:
-                position = RebirthPlace.THIRD;
+                position = EntryPoint.THIRD;
                 break;
             case 3:
-                position = RebirthPlace.FOURTH;
+                position = EntryPoint.FOURTH;
                 break;
 
         }
@@ -64,7 +62,7 @@ public class GameSession {
 
     void toDoAction(Player player, String command) {
 
-        SimpleTank tmpTank = activePlayers.get(player);
+        AverageJoe tmpTank = activePlayers.get(player);
         switch (command) {
 
             case "up":
@@ -90,8 +88,8 @@ public class GameSession {
 
     void updatePlayers(Set<Player> players){
 
-        HashMap<Player, SimpleTank> tmpActivePlayers = new HashMap<>(activePlayers);
-        for (Map.Entry<Player, SimpleTank> item : tmpActivePlayers.entrySet()){
+        HashMap<Player, AverageJoe> tmpActivePlayers = new HashMap<>(activePlayers);
+        for (Map.Entry<Player, AverageJoe> item : tmpActivePlayers.entrySet()){
             Player tmpPlayer = item.getKey();
             if (!players.contains(tmpPlayer)){
                 activePlayers.remove(tmpPlayer);

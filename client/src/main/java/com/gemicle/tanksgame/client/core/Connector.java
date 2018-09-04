@@ -6,10 +6,9 @@
 package com.gemicle.tanksgame.client.core;
 
 import com.gemicle.tanksgame.common.objects.game.Player;
-import com.gemicle.tanksgame.common.objects.units.SimpleTank;
+import com.gemicle.tanksgame.common.objects.units.AverageJoe;
 import lombok.AccessLevel;
 import lombok.Getter;
-import lombok.Setter;
 import lombok.extern.log4j.Log4j;
 
 import java.io.*;
@@ -79,10 +78,10 @@ public class Connector {
                     Frame.player = (Player) gameData;
                 } else if (gameData instanceof Map) {
 
-                    Map<Player,SimpleTank> session = (Map<Player,SimpleTank>) gameData;
+                    Map<Player,AverageJoe> session = (Map<Player,AverageJoe>) gameData;
 
 //                    for (Map.Entry item : session.entrySet()) {
-//                        SimpleTank tank = (SimpleTank) item.getValue();
+//                        AverageJoe tank = (AverageJoe) item.getValue();
 //                        log.info(" " + tank.getPosY());
 //
 //                    }

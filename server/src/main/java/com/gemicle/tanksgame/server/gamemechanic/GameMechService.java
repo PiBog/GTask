@@ -6,7 +6,6 @@
 package com.gemicle.tanksgame.server.gamemechanic;
 
 import com.gemicle.tanksgame.common.objects.game.Player;
-import com.gemicle.tanksgame.common.objects.units.SimpleTank;
 
 import java.util.Map;
 import java.util.Set;

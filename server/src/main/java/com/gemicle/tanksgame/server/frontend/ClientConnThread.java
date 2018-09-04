@@ -6,7 +6,7 @@
 package com.gemicle.tanksgame.server.frontend;
 
 import com.gemicle.tanksgame.common.objects.game.Player;
-import com.gemicle.tanksgame.common.objects.units.SimpleTank;
+import com.gemicle.tanksgame.common.objects.units.AverageJoe;
 import lombok.Getter;
 import lombok.extern.log4j.Log4j;
 
@@ -84,7 +84,7 @@ public class ClientConnThread extends Thread {
 
     }
 
-    void sendData(Map<Player, SimpleTank> activePlayers) {
+    void sendData(Map<Player, AverageJoe> activePlayers) {
         try {
             this.oos.writeObject(activePlayers);
             this.oos.flush();

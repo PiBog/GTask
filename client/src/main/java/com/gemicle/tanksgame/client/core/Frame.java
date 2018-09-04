@@ -5,10 +5,8 @@
  */
 package com.gemicle.tanksgame.client.core;
 
-import com.gemicle.tanksgame.client.core.Connector;
 import com.gemicle.tanksgame.common.objects.game.Player;
-import com.gemicle.tanksgame.common.objects.units.SimpleTank;
-import lombok.AccessLevel;
+import com.gemicle.tanksgame.common.objects.units.AverageJoe;
 import lombok.Getter;
 import lombok.extern.log4j.Log4j;
 
@@ -18,7 +16,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
-import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
 import java.io.IOException;
@@ -238,17 +235,17 @@ public class Frame extends JFrame {
         this.action("startGame");
     }
 
-    public void refresh(Map<Player,SimpleTank> gameData){
+    public void refresh(Map<Player,AverageJoe> gameData){
         log.info("repaint screen");
         clear();
-        Map<Player,SimpleTank> session = gameData;
-        for (Map.Entry<Player,SimpleTank> item : session.entrySet()){
+        Map<Player,AverageJoe> session = gameData;
+        for (Map.Entry<Player,AverageJoe> item : session.entrySet()){
             g.setColor(Color.RED);
             Player curPlayer = item.getKey();
             if (curPlayer.getId() == (player.getId())){
                 g.setColor(Color.GREEN);
             }
-            SimpleTank tank = item.getValue();
+            AverageJoe tank = item.getValue();
             g.fillRect(tank.getPosX(), tank.getPosY(), 40,40);
             log.info(""+tank.getPosX()+" "+tank.getPosY());
         }
