@@ -16,7 +16,7 @@ import com.gemicle.tanksgame.common.objects.ID;
  * @since 1.0
  */
 
-public class WaterTrench extends WallMaterial{
+public class WaterTrench extends AbstractWall {
 
     public WaterTrench(int xPos, int yPos) {
         setPosX(xPos);
@@ -25,6 +25,8 @@ public class WaterTrench extends WallMaterial{
         this.isTransparent = true;
         this.type = ID.WALL;
         setDirection(Direction.NORD);
+        setSize(this.OBJECT_SIZE);
+
     }
 
 }

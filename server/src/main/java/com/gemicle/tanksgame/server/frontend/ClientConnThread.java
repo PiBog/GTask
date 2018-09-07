@@ -5,6 +5,7 @@
  */
 package com.gemicle.tanksgame.server.frontend;
 
+import com.gemicle.tanksgame.common.objects.GameObject;
 import com.gemicle.tanksgame.common.objects.game.Player;
 import com.gemicle.tanksgame.common.objects.units.AverageJoe;
 import lombok.Getter;
@@ -12,6 +13,7 @@ import lombok.extern.log4j.Log4j;
 
 import java.io.*;
 import java.net.Socket;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -73,8 +75,7 @@ public class ClientConnThread extends Thread {
                 try {
                     Thread.sleep(1);
                 } catch (InterruptedException e) {
-//                    e.printStackTrace();
-                    log.error(e.getStackTrace()[0]);
+                    log.error(e);
                 }
             }
         } catch (IOException e) {
@@ -84,14 +85,13 @@ public class ClientConnThread extends Thread {
 
     }
 
-    void sendData(Map<Player, AverageJoe> activePlayers) {
+    void sendData(List<GameObject> activePlayers) {
         try {
             this.oos.writeObject(activePlayers);
             this.oos.flush();
             this.oos.reset();
         } catch (IOException e) {
-            e.printStackTrace();
-            log.error(e.getStackTrace()[0].toString(), e);
+            log.error(e);
         }
     }
 

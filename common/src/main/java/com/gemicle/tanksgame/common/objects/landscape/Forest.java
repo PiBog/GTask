@@ -15,7 +15,7 @@ import com.gemicle.tanksgame.common.objects.ID;
  * @version 1.0
  * @since 1.0
  */
-public class Forest extends WallMaterial{
+public class Forest extends AbstractWall {
 
     public Forest(int xPos, int yPos) {
         setPosX(xPos);
@@ -24,5 +24,7 @@ public class Forest extends WallMaterial{
         this.isTransparent = true;
         this.type = ID.WALL;
         setDirection(Direction.NORD);
+        setSize(this.OBJECT_SIZE);
+
     }
 }

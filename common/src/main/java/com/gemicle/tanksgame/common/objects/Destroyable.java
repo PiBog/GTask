@@ -13,7 +13,7 @@ package com.gemicle.tanksgame.common.objects;
  * @since 1.0
  */
 
-public interface Destructable {
+public interface Destroyable {
     int getArmor();
     void setArmor(int armor);
 }

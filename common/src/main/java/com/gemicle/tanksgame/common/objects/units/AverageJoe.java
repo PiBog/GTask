@@ -25,6 +25,8 @@ public class AverageJoe extends Unit {
         this.armor = 3;
         this.firing = 3;
         this.type = ID.TANK;
+        setSize(this.OBJECT_SIZE);
+
 
     }
 

@@ -26,5 +26,7 @@ public class BigBerta extends Unit{
         setFiring(3);
         this.type = ID.TANK;
         setDirection(position.getDirection());
+        setSize(this.OBJECT_SIZE);
+
     }
 }

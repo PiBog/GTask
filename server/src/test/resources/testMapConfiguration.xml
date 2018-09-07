@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<gameObjects>
+    <wall>
+        <posX>50</posX>
+        <posY>50</posY>
+        <type>forest</type>
+    </wall>
+    <wall>
+        <posX>100</posX>
+        <posY>100</posY>
+        <type>brick</type>
+    </wall>
+</gameObjects>

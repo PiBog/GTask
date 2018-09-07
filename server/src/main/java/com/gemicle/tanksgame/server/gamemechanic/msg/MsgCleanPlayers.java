@@ -14,25 +14,33 @@ import com.gemicle.tanksgame.server.messagesystem.Message;
 import java.util.Set;
 
 /**
- * An implementation of
+ * Class initiate cleaning disconnected players in current game session
  *
  * @author Bohdan Pysarenko
  * @version 1.0
  * @since 1.0
  */
-public class MsgClearPlayers extends MsgToGM {
+public class MsgCleanPlayers extends MsgToGM {
 
+    /**
+     * Contains set of connected players
+     */
     private Set<Player> players;
 
-    public MsgClearPlayers(Address from, Address to, Set<Player> players) {
+    public MsgCleanPlayers(Address from, Address to, Set<Player> players) {
         super(from, to);
         this.players = players;
     }
 
+    /**
+     * Creates new message to frontend that contains updated game session and
+     * initiates replication task it
+     * @param service that will process task
+     */
     @Override
     protected void execute(GameMechServiceImpl service) {
-        Message replyAllPlayers = new MsgReplyAllClients(this.getTo(), this.getFrom(),
+        Message response = new MsgReplyAllClients(this.getTo(), this.getFrom(),
                 service.refreshPlayers(players));
-        service.getMessageSystem().sendMsg(replyAllPlayers);
+        service.getMessageSystem().sendMsg(response);
     }
 }

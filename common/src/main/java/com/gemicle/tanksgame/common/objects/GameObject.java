@@ -24,8 +24,10 @@ public abstract class GameObject implements Serializable {
 
     protected int posX;
     protected int posY;
+    protected int size;
     @Setter(AccessLevel.NONE)
     protected ID type;
     protected Direction direction;
+    protected boolean isBroken = false;
 
 }

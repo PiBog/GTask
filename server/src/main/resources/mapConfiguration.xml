@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<gameObjects>
+    <wall>
+        <posX>50</posX>
+        <posY>50</posY>
+        <type>forest</type>
+    </wall>
+    <wall>
+        <posX>100</posX>
+        <posY>100</posY>
+        <type>brick</type>
+    </wall>
+    <wall>
+        <posX>150</posX>
+        <posY>150</posY>
+        <type>iron</type>
+    </wall>
+    <wall>
+        <posX>200</posX>
+        <posY>200</posY>
+        <type>water</type>
+    </wall>
+    <wall>
+        <posX>250</posX>
+        <posY>250</posY>
+        <type>brick</type>
+    </wall>
+</gameObjects>

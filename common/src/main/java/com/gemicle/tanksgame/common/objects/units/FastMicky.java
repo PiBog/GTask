@@ -15,13 +15,15 @@ import com.gemicle.tanksgame.common.objects.EntryPoint;
  * @version 1.0
  * @since 1.0
  */
-public class FastMicky extends Unit{
+public class FastMicky extends Unit {
     public FastMicky(EntryPoint position) {
         this.posX = position.getXPos();
         this.posY = position.getYPos();
-        this.speed=1;
-        this.armor = 5;
+        this.speed = 5;
+        this.armor = 1;
         this.firing = 3;
         this.type = ID.TANK;
+        setSize(this.OBJECT_SIZE);
+
     }
 }

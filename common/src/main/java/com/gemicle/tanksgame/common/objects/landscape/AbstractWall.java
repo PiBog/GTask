@@ -17,14 +17,16 @@ import lombok.Getter;
  * @since 1.0
  */
 @Getter
-public abstract class WallMaterial extends GameObject {
+public abstract class AbstractWall extends GameObject {
+
+        public static final int OBJECT_SIZE = 40;
 
         /**
-         * Can fire through wall
+         * Can fire through wall. For checking collisions with bullets.
          */
         protected boolean isTransparent;
         /**
-         * Can move through wall
+         * Can move through wall. For checking collisions with units.
          */
         protected boolean isCanCrossed;
 

@@ -5,6 +5,7 @@
  */
 package com.gemicle.tanksgame.common.objects.landscape;
 
+import com.gemicle.tanksgame.common.objects.Destroyable;
 import com.gemicle.tanksgame.common.objects.Direction;
 import com.gemicle.tanksgame.common.objects.ID;
 import lombok.Getter;
@@ -19,7 +20,8 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class BricksWall extends WallMaterial {
+
+public class BricksWall extends AbstractWall implements Destroyable {
 
     private int armor;
 
@@ -32,6 +34,7 @@ public class BricksWall extends WallMaterial {
         this.type = ID.WALL;
         setDirection(Direction.NORD);
         setArmor(10);
+        setSize(this.OBJECT_SIZE);
 
     }
 

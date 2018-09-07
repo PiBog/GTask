@@ -12,16 +12,21 @@ import com.gemicle.tanksgame.server.messagesystem.Address;
 import com.gemicle.tanksgame.server.messagesystem.Message;
 
 /**
- * An implementation of
+ * Class processes player's action in current game session
  *
- * @param
  * @author Bohdan Pysarenko
  * @version 1.0
  * @since 1.0
  */
 public class MsgProcessAction extends MsgToGM {
 
+    /**
+     * Contains player who made action
+     */
     private Player player;
+    /**
+     * Contains description of player's action
+     */
     private String command;
 
     public MsgProcessAction(Address from, Address to, Player player, String command) {
@@ -30,6 +35,11 @@ public class MsgProcessAction extends MsgToGM {
         this.command = command;
     }
 
+    /**
+     * Creates new message to frontend that contains updated game session and
+     * initiates replication task it
+     * @param service that will process task
+     */
     @Override
     protected void execute(GameMechServiceImpl service) {
         Message response = new MsgReplyAllClients(getTo(), getFrom(),

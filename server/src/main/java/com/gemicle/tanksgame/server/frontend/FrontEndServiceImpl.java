@@ -5,11 +5,12 @@
  */
 package com.gemicle.tanksgame.server.frontend;
 
+import com.gemicle.tanksgame.common.objects.GameObject;
 import com.gemicle.tanksgame.common.objects.game.Player;
 import com.gemicle.tanksgame.common.objects.units.AverageJoe;
-import com.gemicle.tanksgame.server.config.ThreadsSettings;
+import com.gemicle.tanksgame.server.config.Settings;
 import com.gemicle.tanksgame.server.gamemechanic.msg.MsgAddNewPlayer;
-import com.gemicle.tanksgame.server.gamemechanic.msg.MsgClearPlayers;
+import com.gemicle.tanksgame.server.gamemechanic.msg.MsgCleanPlayers;
 import com.gemicle.tanksgame.server.gamemechanic.msg.MsgProcessAction;
 import com.gemicle.tanksgame.server.messagesystem.Address;
 import com.gemicle.tanksgame.server.messagesystem.Message;
@@ -18,6 +19,7 @@ import lombok.Getter;
 import lombok.extern.log4j.Log4j;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -66,10 +68,10 @@ public class FrontEndServiceImpl implements FrontEndService, Runnable {
         this.isRun = true;
         log.info("Frontend started");
         while (this.isRun) {
-            refreshConnections();
+//            refreshConnections();
             messageSystem.executeForSubscriber(this);
             try {
-                Thread.sleep(ThreadsSettings.SERVICE_SLEEP_TIME);
+                Thread.sleep(Settings.FE_SERVICE_SLEEP_TIME);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -94,7 +96,7 @@ public class FrontEndServiceImpl implements FrontEndService, Runnable {
     }
 
     private void clearGameSession(Set<Player> players){
-        Message msgClearPlayers = new MsgClearPlayers(getAddress(),
+        Message msgClearPlayers = new MsgCleanPlayers(getAddress(),
                                 messageSystem.getGameMechAddress(), players);
         this.messageSystem.sendMsg(msgClearPlayers);
     }
@@ -114,11 +116,12 @@ public class FrontEndServiceImpl implements FrontEndService, Runnable {
     }
 
     @Override
-    public void replicateToClients(Map<Player, AverageJoe> gameSessionPlayers) {
-        Set<Player> activePlayers = gameSessionPlayers.keySet();
+    public void replicateToClients(List<GameObject> gameSessionObjects) {
+        refreshConnections();
+        Set<Player> activePlayers = connectedUsers.keySet();
         for (Player player : activePlayers){
             if(connectedUsers.containsKey(player)){
-                connectedUsers.get(player).sendData(gameSessionPlayers);
+                connectedUsers.get(player).sendData(gameSessionObjects);
 
             }
         }

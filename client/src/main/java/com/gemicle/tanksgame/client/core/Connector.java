@@ -5,6 +5,7 @@
  */
 package com.gemicle.tanksgame.client.core;
 
+import com.gemicle.tanksgame.common.objects.GameObject;
 import com.gemicle.tanksgame.common.objects.game.Player;
 import com.gemicle.tanksgame.common.objects.units.AverageJoe;
 import lombok.AccessLevel;
@@ -13,6 +14,8 @@ import lombok.extern.log4j.Log4j;
 
 import java.io.*;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -76,15 +79,10 @@ public class Connector {
 
                 if (gameData instanceof Player) {
                     Frame.player = (Player) gameData;
-                } else if (gameData instanceof Map) {
+                } else if (gameData instanceof List) {
 
-                    Map<Player,AverageJoe> session = (Map<Player,AverageJoe>) gameData;
+                    List<GameObject> session =(ArrayList<GameObject>) gameData;
 
-//                    for (Map.Entry item : session.entrySet()) {
-//                        AverageJoe tank = (AverageJoe) item.getValue();
-//                        log.info(" " + tank.getPosY());
-//
-//                    }
                     this.mainFrame.refresh(session);
 
                 }

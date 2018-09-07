@@ -12,15 +12,17 @@ import com.gemicle.tanksgame.server.messagesystem.Address;
 import com.gemicle.tanksgame.server.messagesystem.Message;
 
 /**
- * An implementation of
+ * Class initiate adding new player to current game session
  *
- * @param
  * @author Bohdan Pysarenko
  * @version 1.0
  * @since 1.0
  */
 public class MsgAddNewPlayer extends MsgToGM {
 
+    /**
+     * Contains new player
+     */
     private Player player;
 
     public MsgAddNewPlayer(Address from, Address to, Player player){
@@ -29,10 +31,15 @@ public class MsgAddNewPlayer extends MsgToGM {
     }
 
 
+    /**
+     * Creates new message to frontend that contains updated game session and
+     * initiates replication task it
+     * @param service that will process task
+     */
     @Override
     protected void execute(GameMechServiceImpl service) {
-        Message replyAllPlayers = new MsgReplyAllClients(this.getTo(), this.getFrom(),
+        Message response = new MsgReplyAllClients(this.getTo(), this.getFrom(),
                 service.addNewPlayer(player));
-        service.getMessageSystem().sendMsg(replyAllPlayers);
+        service.getMessageSystem().sendMsg(response);
     }
 }

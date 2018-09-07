@@ -7,7 +7,7 @@ package com.gemicle.tanksgame.server.gamemechanic;
 
 import com.gemicle.tanksgame.common.objects.game.Player;
 
-import java.util.Map;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -20,10 +20,26 @@ import java.util.Set;
  */
 public interface GameMechService {
 
-    Map addNewPlayer(Player player);
+    /**
+     * Method responsible for adding new player to game set
+     *
+     * @param player recently connected player
+     */
+    List addNewPlayer(Player player);
 
-    Map refreshPlayers(Set<Player> players);
+    /**
+     * Method execute refreshing players list in game session
+     *
+     * @param players set of active players
+     */
+    List refreshPlayers(Set<Player> players);
 
-    Map processingPlayerCommand(Player player, String command);
+    /**
+     * Method execute players command
+     *
+     * @param player who sends command
+     * @param command - player's command
+     */
+    List processingPlayerCommand(Player player, String command);
 
 }

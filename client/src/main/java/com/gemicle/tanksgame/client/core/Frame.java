@@ -5,6 +5,8 @@
  */
 package com.gemicle.tanksgame.client.core;
 
+import com.gemicle.tanksgame.common.objects.GameObject;
+import com.gemicle.tanksgame.common.objects.ID;
 import com.gemicle.tanksgame.common.objects.game.Player;
 import com.gemicle.tanksgame.common.objects.units.AverageJoe;
 import lombok.Getter;
@@ -19,8 +21,11 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Stream;
 
 /**
  * An implementation of
@@ -41,7 +46,7 @@ public class Frame extends JFrame {
     private Color clearColor;
 
 
-    private JPanel field = new JPanel(){
+    private JPanel field = new JPanel() {
         /**
          * {@inheritDoc}
          */
@@ -49,7 +54,7 @@ public class Frame extends JFrame {
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
             Graphics2D g2d = (Graphics2D) g;
-            g2d.drawImage(image,0,0,this);
+            g2d.drawImage(image, 0, 0, this);
 //            g.dispose();
         }
     };
@@ -138,9 +143,9 @@ public class Frame extends JFrame {
         buttonSubmit.setVerticalAlignment(SwingConstants.CENTER);
         this.add(buttonSubmit);
 
-        image = new BufferedImage(field.getWidth(),field.getHeight(),BufferedImage.TYPE_INT_ARGB);
-        g=image.getGraphics();
-        bufferedData = ((DataBufferInt)image.getRaster().getDataBuffer()).getData();
+        image = new BufferedImage(field.getWidth(), field.getHeight(), BufferedImage.TYPE_INT_ARGB);
+        g = image.getGraphics();
+        bufferedData = ((DataBufferInt) image.getRaster().getDataBuffer()).getData();
         clearColor = field.getBackground();
 
     }
@@ -160,7 +165,7 @@ public class Frame extends JFrame {
             } else {
                 log.info("Can't get connection");
             }
-            this.action("getPlayer:"+nameField.getText());
+            this.action("getPlayer:" + nameField.getText());
         } catch (IOException e) {
             e.printStackTrace();
             log.info("Error" + e.getStackTrace()[0]);
@@ -235,26 +240,40 @@ public class Frame extends JFrame {
         this.action("startGame");
     }
 
-    public void refresh(Map<Player,AverageJoe> gameData){
+    public void refresh(List<GameObject> gameData) {
         log.info("repaint screen");
         clear();
-        Map<Player,AverageJoe> session = gameData;
-        for (Map.Entry<Player,AverageJoe> item : session.entrySet()){
-            g.setColor(Color.RED);
-            Player curPlayer = item.getKey();
-            if (curPlayer.getId() == (player.getId())){
-                g.setColor(Color.GREEN);
-            }
-            AverageJoe tank = item.getValue();
-            g.fillRect(tank.getPosX(), tank.getPosY(), 40,40);
-            log.info(""+tank.getPosX()+" "+tank.getPosY());
-        }
+        List<GameObject> tanks = separateColection(gameData, ID.TANK);
+        List<GameObject> walls = separateColection(gameData, ID.WALL);
+        List<GameObject> bullets = separateColection(gameData, ID.BULLET);
+
+        repaintLayer(tanks, g, Color.GREEN);
+        repaintLayer(walls, g, Color.WHITE);
+        repaintLayer(bullets, g, Color.RED);
 
         field.repaint();
 
     }
 
-    private void clear(){
+    public List<GameObject> separateColection(List<GameObject> list, ID marker) {
+        List<GameObject> separatredList = new ArrayList<>();
+        for (GameObject item : list) {
+            if (item.getType() == marker) {
+                separatredList.add(item);
+            }
+        }
+        return separatredList;
+    }
+
+    public void repaintLayer(List<GameObject> list, Graphics g, Color color) {
+        g.setColor(color);
+        for (GameObject item : list) {
+            g.fillRect(item.getPosX(), item.getPosY(), item.getSize(), item.getSize());
+        }
+
+    }
+
+    private void clear() {
         Arrays.fill(bufferedData, clearColor.getRGB());
     }
 

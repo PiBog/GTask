@@ -8,6 +8,8 @@ package com.gemicle.tanksgame.common.objects;
 import com.gemicle.tanksgame.common.objects.Direction;
 import lombok.Getter;
 
+import java.util.Map;
+
 /**
  * Class contains start position coordinates from which will starting and reviving players.
  * Every place has area 40x40px
@@ -31,6 +33,27 @@ public enum EntryPoint {
         this.xPos = xPos;
         this.yPos = yPos;
         this.direction = direction;
+    }
+
+    /**
+     * Method returns random start position
+     *
+     * @return one of enums
+     */
+    public static EntryPoint getRndLocation() {
+        int rnd = (int) (Math.random() % 4);
+
+        switch (rnd) {
+            case 0:
+                return BOTTOM;
+            case 1:
+                return UP;
+            case 2:
+                return LEFT;
+            default:
+                return RIGHT;
+        }
+
     }
 
 

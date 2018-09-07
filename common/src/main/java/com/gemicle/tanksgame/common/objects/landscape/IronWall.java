@@ -5,7 +5,7 @@
  */
 package com.gemicle.tanksgame.common.objects.landscape;
 
-import com.gemicle.tanksgame.common.objects.Destructable;
+import com.gemicle.tanksgame.common.objects.Destroyable;
 import com.gemicle.tanksgame.common.objects.Direction;
 import com.gemicle.tanksgame.common.objects.ID;
 import lombok.Getter;
@@ -20,7 +20,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class IronWall extends WallMaterial implements Destructable {
+public class IronWall extends AbstractWall implements Destroyable {
 
     private int armor;
 
@@ -32,6 +32,7 @@ public class IronWall extends WallMaterial implements Destructable {
         this.type = ID.WALL;
         setDirection(Direction.NORD);
         setArmor(100);
+        setSize(this.OBJECT_SIZE);
 
     }
 }

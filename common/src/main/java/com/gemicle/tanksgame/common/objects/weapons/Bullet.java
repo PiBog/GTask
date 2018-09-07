@@ -6,7 +6,7 @@
 package com.gemicle.tanksgame.common.objects.weapons;
 
 import com.gemicle.tanksgame.common.objects.GameObject;
-import com.gemicle.tanksgame.common.objects.Destructable;
+import com.gemicle.tanksgame.common.objects.Destroyable;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -19,7 +19,9 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public abstract class Bullet extends GameObject implements Destructable{
+public abstract class Bullet extends GameObject implements Destroyable {
+
+    public static final int OBJECT_SIZE = 10;
 
     /*machine features*/
     /**

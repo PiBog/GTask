@@ -6,9 +6,9 @@
 package com.gemicle.tanksgame.server.frontend.msg;
 
 import com.gemicle.tanksgame.server.frontend.FrontEndServiceImpl;
-import com.gemicle.tanksgame.server.gamemechanic.GameSession;
 import com.gemicle.tanksgame.server.messagesystem.Address;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -20,9 +20,9 @@ import java.util.Map;
  */
 public class MsgReplyAllClients extends MsgToFE {
 
-    private Map gameSessionPlayers;
+    private List gameSessionPlayers;
 
-    public MsgReplyAllClients(Address from, Address to, Map gameSessionPlayers){
+    public MsgReplyAllClients(Address from, Address to, List gameSessionPlayers){
         super(from, to);
         this.gameSessionPlayers = gameSessionPlayers;
     }
