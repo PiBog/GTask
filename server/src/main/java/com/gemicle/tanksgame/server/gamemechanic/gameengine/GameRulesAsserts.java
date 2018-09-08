@@ -5,13 +5,12 @@
  */
 package com.gemicle.tanksgame.server.gamemechanic.gameengine;
 
-import com.gemicle.tanksgame.common.objects.Destroyable;
-import com.gemicle.tanksgame.common.objects.Direction;
+import com.gemicle.tanksgame.server.gamemechanic.gameobjects.Destroyable;
 import com.gemicle.tanksgame.common.objects.GameObject;
 import com.gemicle.tanksgame.common.objects.ID;
-import com.gemicle.tanksgame.common.objects.landscape.AbstractWall;
-import com.gemicle.tanksgame.common.objects.units.Unit;
-import com.gemicle.tanksgame.common.objects.weapons.Bullet;
+import com.gemicle.tanksgame.server.gamemechanic.gameobjects.landscape.AbstractWall;
+import com.gemicle.tanksgame.server.gamemechanic.gameobjects.units.Unit;
+import com.gemicle.tanksgame.server.gamemechanic.gameobjects.weapons.Bullet;
 
 /**
  * Class contains different static methods for checking game rules and conditions
@@ -54,7 +53,7 @@ public class GameRulesAsserts {
      * @param object game object with fixed position at now
      * @return result of checking is true if they have collision
      */
-    public static boolean checkCollision(Bullet bullet, GameObject object) {
+    public static boolean checkIsCollision(Bullet bullet, GameObject object) {
         boolean isCollision = true;
         if (object.getType() == ID.WALL) {
             if (((AbstractWall) object).isTransparent()) {
@@ -73,7 +72,7 @@ public class GameRulesAsserts {
      * @param object game object with fixed position at now
      * @return result of checking is true if they have collision
      */
-    public static boolean checkCollision(Unit unit, GameObject object) {
+    public static boolean checkIsCollision(Unit unit, GameObject object) {
         boolean isCollision = true;
         if (object.getType() == ID.WALL) {
             if (((AbstractWall) object).isCanCrossed()) {

@@ -3,11 +3,14 @@ package com.gemicle.tanksgame.server.gamemechanic.gameengine;/*Bohdan Pysarenko 
  */
 
 import org.junit.Test;
+import org.mockito.Mock;
 
 import static org.junit.Assert.*;
 
 public class GameTest {
 
+    @Mock
+    Game game = new Game();
 
 
     @Test
@@ -21,10 +24,15 @@ public class GameTest {
 
     @Test
     public void finishGame() {
+
+        game.finishGame();
+
     }
 
     @Test
     public void processAction() {
+
+
     }
 
 

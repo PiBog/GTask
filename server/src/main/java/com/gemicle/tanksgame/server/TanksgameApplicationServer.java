@@ -5,25 +5,12 @@
  */
 package com.gemicle.tanksgame.server;
 
-import com.gemicle.tanksgame.common.objects.EntryPoint;
-import com.gemicle.tanksgame.common.objects.game.Player;
-import com.gemicle.tanksgame.common.objects.landscape.Point;
-import com.gemicle.tanksgame.common.objects.units.AverageJoe;
-import com.gemicle.tanksgame.common.objects.units.BigBerta;
-import com.gemicle.tanksgame.common.objects.units.FastMicky;
-import com.gemicle.tanksgame.common.objects.units.Unit;
 import com.gemicle.tanksgame.server.frontend.FrontEndServiceImpl;
 import com.gemicle.tanksgame.server.gamemechanic.GameMechServiceImpl;
 import com.gemicle.tanksgame.server.messagesystem.MessageSystem;
 import lombok.extern.log4j.Log4j;
 
-import javax.xml.bind.annotation.XmlElements;
-import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
 
 /**
  * Main class of server part
@@ -35,8 +22,6 @@ import java.util.Map;
 
 @Log4j
 public class TanksgameApplicationServer {
-
-    public static List<Point> list = new LinkedList<>();
 
     /**
      * Entry point starts server.

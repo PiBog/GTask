@@ -4,25 +4,18 @@ package com.gemicle.tanksgame.server.gamemechanic.gameengine;/*Bohdan Pysarenko 
 
 import com.gemicle.tanksgame.common.objects.GameObject;
 import com.gemicle.tanksgame.common.objects.ID;
-import com.gemicle.tanksgame.common.objects.game.Player;
-import com.gemicle.tanksgame.common.objects.landscape.WallFactory;
-import com.gemicle.tanksgame.common.objects.units.AverageJoe;
-import com.gemicle.tanksgame.common.objects.units.Unit;
+import com.gemicle.tanksgame.server.gamemechanic.gameobjects.game.Player;
+import com.gemicle.tanksgame.server.gamemechanic.gameobjects.landscape.WallFactory;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-
-import static org.junit.Assert.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class GameSessionTest {

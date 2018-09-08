@@ -5,6 +5,8 @@
  */
 package com.gemicle.tanksgame.common.objects;
 
+import lombok.Getter;
+
 /**
  * Class contains all possible directions for tank movement
  *
@@ -12,6 +14,17 @@ package com.gemicle.tanksgame.common.objects;
  * @version 1.0
  * @since 1.0
  */
+@Getter
 public enum Direction  {
-    NORD, SOUTH, WEST, EAST
+    NORD(0,-1),
+    SOUTH(0,1),
+    WEST(-1,0),
+    EAST(1,0);
+    private final int dX;
+    private final int dY;
+
+    Direction(int dX, int dY){
+        this.dX=dX;
+        this.dY=dY;
+    }
 }

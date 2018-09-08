@@ -6,7 +6,7 @@
 package com.gemicle.tanksgame.server.frontend;
 
 import com.gemicle.tanksgame.common.objects.GameObject;
-import com.gemicle.tanksgame.common.objects.game.Player;
+import com.gemicle.tanksgame.server.gamemechanic.gameobjects.game.Player;
 import com.gemicle.tanksgame.server.messagesystem.Subscriber;
 
 import java.util.List;

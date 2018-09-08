@@ -3,12 +3,10 @@
  *
  *
  */
-package com.gemicle.tanksgame.common.objects;
+package com.gemicle.tanksgame.server.gamemechanic.gameobjects;
 
 import com.gemicle.tanksgame.common.objects.Direction;
 import lombok.Getter;
-
-import java.util.Map;
 
 /**
  * Class contains start position coordinates from which will starting and reviving players.
@@ -20,10 +18,10 @@ import java.util.Map;
  */
 @Getter
 public enum EntryPoint {
-    UP(380, 0, Direction.SOUTH),
-    BOTTOM(380, 560, Direction.NORD),
-    LEFT(0, 280, Direction.SOUTH),
-    RIGHT(760, 280, Direction.WEST);
+    UP(380000, 0, Direction.SOUTH),
+    BOTTOM(380000, 560000, Direction.NORD),
+    LEFT(0, 280000, Direction.EAST),
+    RIGHT(760000, 280000, Direction.WEST);
 
     private final int xPos;
     private final int yPos;

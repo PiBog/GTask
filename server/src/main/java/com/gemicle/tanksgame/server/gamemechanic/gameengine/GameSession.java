@@ -5,16 +5,13 @@
  */
 package com.gemicle.tanksgame.server.gamemechanic.gameengine;
 
-import com.gemicle.tanksgame.common.objects.Direction;
-import com.gemicle.tanksgame.common.objects.EntryPoint;
+import com.gemicle.tanksgame.server.gamemechanic.gameobjects.EntryPoint;
 import com.gemicle.tanksgame.common.objects.GameObject;
 import com.gemicle.tanksgame.common.objects.ID;
-import com.gemicle.tanksgame.common.objects.units.AverageJoe;
-import com.gemicle.tanksgame.common.objects.game.Player;
-import com.gemicle.tanksgame.common.objects.units.Unit;
-import com.gemicle.tanksgame.common.objects.weapons.Bullet;
-import com.gemicle.tanksgame.common.objects.weapons.CrazyBullet;
-import com.sun.istack.internal.NotNull;
+import com.gemicle.tanksgame.server.gamemechanic.gameobjects.units.AverageJoe;
+import com.gemicle.tanksgame.server.gamemechanic.gameobjects.game.Player;
+import com.gemicle.tanksgame.server.gamemechanic.gameobjects.units.Unit;
+import com.gemicle.tanksgame.server.gamemechanic.gameobjects.weapons.Bullet;
 import lombok.extern.log4j.Log4j;
 
 import java.util.*;
@@ -32,7 +29,14 @@ import java.util.*;
 public class GameSession {
 
 
+    /**
+     * Field contains the map of connected players and their units.
+     */
     private final HashMap<Player, Unit> activePlayers;
+
+    /**
+     * Field contains the lists of other game objects. List mapped by ID.
+     */
     private final HashMap<ID, LinkedList<GameObject>> gameObjects;
 
     public GameSession(HashMap<ID, LinkedList<GameObject>> map) {

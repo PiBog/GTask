@@ -6,11 +6,10 @@
 package com.gemicle.tanksgame.server.gamemechanic.gameengine;
 
 import com.gemicle.tanksgame.common.objects.GameObject;
-import com.gemicle.tanksgame.common.objects.landscape.WallFactory;
+import com.gemicle.tanksgame.server.gamemechanic.gameobjects.landscape.WallFactory;
 import lombok.extern.log4j.Log4j;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -64,7 +63,7 @@ public class MapFromXmlReader {
                         .getElementsByTagName("type")
                         .item(0).getTextContent();
 
-                landscape.add(WallFactory.newWall(posX, posY, type));
+                landscape.add(WallFactory.newWall(posX*1000, posY*1000, type));
 
                 /*if (node.getNodeType() == Node.ELEMENT_NODE) {
                     Element item = (Element) node;

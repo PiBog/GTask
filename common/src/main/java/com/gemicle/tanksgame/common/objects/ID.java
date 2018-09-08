@@ -16,5 +16,5 @@ import lombok.Getter;
  */
 @Getter
 public enum ID {
-    TANK, WALL, BULLET
+    TANK, WALL, BULLET, FALL
 }

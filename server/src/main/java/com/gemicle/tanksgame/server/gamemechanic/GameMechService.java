@@ -5,7 +5,7 @@
  */
 package com.gemicle.tanksgame.server.gamemechanic;
 
-import com.gemicle.tanksgame.common.objects.game.Player;
+import com.gemicle.tanksgame.server.gamemechanic.gameobjects.game.Player;
 
 import java.util.List;
 import java.util.Set;

@@ -5,7 +5,7 @@
  */
 package com.gemicle.tanksgame.server.gamemechanic.msg;
 
-import com.gemicle.tanksgame.common.objects.game.Player;
+import com.gemicle.tanksgame.server.gamemechanic.gameobjects.game.Player;
 import com.gemicle.tanksgame.server.frontend.msg.MsgReplyAllClients;
 import com.gemicle.tanksgame.server.gamemechanic.GameMechServiceImpl;
 import com.gemicle.tanksgame.server.messagesystem.Address;

@@ -1,8 +1,8 @@
 package com.gemicle.tanksgame.server.gamemechanic.gameengine;
 
 import com.gemicle.tanksgame.common.objects.GameObject;
-import com.gemicle.tanksgame.common.objects.landscape.BricksWall;
-import com.gemicle.tanksgame.common.objects.landscape.Forest;
+import com.gemicle.tanksgame.server.gamemechanic.gameobjects.landscape.BricksWall;
+import com.gemicle.tanksgame.server.gamemechanic.gameobjects.landscape.Forest;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;

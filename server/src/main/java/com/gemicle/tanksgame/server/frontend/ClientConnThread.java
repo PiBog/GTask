@@ -6,15 +6,13 @@
 package com.gemicle.tanksgame.server.frontend;
 
 import com.gemicle.tanksgame.common.objects.GameObject;
-import com.gemicle.tanksgame.common.objects.game.Player;
-import com.gemicle.tanksgame.common.objects.units.AverageJoe;
+import com.gemicle.tanksgame.server.gamemechanic.gameobjects.game.Player;
 import lombok.Getter;
 import lombok.extern.log4j.Log4j;
 
 import java.io.*;
 import java.net.Socket;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Implementation of the main class of the server part of the Tanksgame application.

@@ -3,7 +3,7 @@
  *
  *
  */
-package com.gemicle.tanksgame.common.objects;
+package com.gemicle.tanksgame.server.gamemechanic.gameobjects;
 
 /**
  * An interface contains method to change armor from destructable objects

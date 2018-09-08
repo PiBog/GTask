@@ -7,8 +7,8 @@ package com.gemicle.tanksgame.client.core;
 
 import com.gemicle.tanksgame.common.objects.GameObject;
 import com.gemicle.tanksgame.common.objects.ID;
-import com.gemicle.tanksgame.common.objects.game.Player;
-import com.gemicle.tanksgame.common.objects.units.AverageJoe;
+import com.gemicle.tanksgame.server.gamemechanic.gameobjects.game.Player;
+import com.gemicle.tanksgame.server.gamemechanic.gameobjects.units.AverageJoe;
 import lombok.Getter;
 import lombok.extern.log4j.Log4j;
 
@@ -24,8 +24,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Stream;
 
 /**
  * An implementation of

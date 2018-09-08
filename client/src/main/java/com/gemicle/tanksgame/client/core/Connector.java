@@ -6,8 +6,8 @@
 package com.gemicle.tanksgame.client.core;
 
 import com.gemicle.tanksgame.common.objects.GameObject;
-import com.gemicle.tanksgame.common.objects.game.Player;
-import com.gemicle.tanksgame.common.objects.units.AverageJoe;
+import com.gemicle.tanksgame.server.gamemechanic.gameobjects.game.Player;
+import com.gemicle.tanksgame.server.gamemechanic.gameobjects.units.AverageJoe;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.extern.log4j.Log4j;
@@ -16,7 +16,6 @@ import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Class implement instance of server connector.
